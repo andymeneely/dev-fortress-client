@@ -1,4 +1,4 @@
-React Redux Starter Kit
+React Redux Starter Kit for Dev-Fortress
 ====
 Starter kit for A React Redux application
 
