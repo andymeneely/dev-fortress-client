@@ -1,0 +1,115 @@
+// Main.css
+
+// Global styles
+
+
+html {}
+
+body {}
+
+
+#app-container {
+	height: 100vh;
+	width: 100%;
+}
+
+.navigation-bar {
+    background-color: #007AFF;
+    -webkit-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.75);
+    & ul {
+        & li {
+            & span {
+                color: #FFFFFF;
+            }
+
+            & a, button {
+                transition: background-color 0.2s;
+                color: #FFFFFF;
+                &:hover {
+                    background-color: #1a88ff;
+                }
+
+                &.active {
+                    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.39);
+                    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.39);
+                    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.39);
+                }
+
+                &:active {
+                    -webkit-box-shadow: inset 0px 0px 12px -7px rgba(0,0,0,0.8);
+                    -moz-box-shadow: inset 0px 0px 12px -7px rgba(0,0,0,0.8);
+                    box-shadow: inset 0px 0px 12px -7px rgba(0,0,0,0.8);
+                    background-color: #006fe6;
+                }
+
+            }
+
+            & button {
+                background-color: #007AFF;
+                display: inline-block;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+}
+
+.counter-container {
+    width: 250px;
+    border: solid 1px #2B2B2B;
+    border-radius: 15px;
+}
+
+.counter-btn {
+    background-color: #34AADC;
+    border: none;
+    display: inline-block;
+    height: 60px;
+    font-size: 30px;
+    color: #FFFFFF;
+    &:active {
+        background-color: #5856D6;
+    }
+    
+    &.counter-plus-btn {
+        width: 50%;
+        border-top-left-radius: 15px;
+    }
+
+    &.counter-sub-btn {
+        width: 50%;
+        border-top-right-radius: 15px;
+        border-left: solid 1px #2B2B2B;
+    }
+
+    &.counter-reset-btn {
+        display: block;
+        width: 100%;
+        border-top: solid 1px #2B2B2B;
+        border-bottom: solid 1px #2B2B2B;
+    }
+}
+
+.counter-display {
+    background-color: #2B2B2B;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+    & .counter-display-title {
+        text-align: center;
+        color: #F7F7F7;
+        padding: 12px;
+    }
+
+    & .counter-display-value {
+        text-align: center;
+        font-size: 3em;
+        color: #F7F7F7;
+    }
+}
+
+
+
+

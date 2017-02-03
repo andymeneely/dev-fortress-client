@@ -1,0 +1,18 @@
+{
+    "extends": "airbnb",
+     "rules": {
+        "no-console": 0,
+        "react/jsx-boolean-value": [2, "always"],
+        "react/prop-types": [2, {"ignore": ["children"]}],
+        "import/prefer-default-export": 0
+    },
+    "plugins": [
+        "import"
+    ],
+    "settings": {
+        "import/resolver": "webpack"
+    },
+    "env": {
+        "browser": true
+    }
+}

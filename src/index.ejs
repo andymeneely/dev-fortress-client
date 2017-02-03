@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title><%- htmlWebpackPlugin.options.title %></title>
+		<% for (var css in htmlWebpackPlugin.files.css) { %>
+			<link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+		<% } %>
+	</head>
+ 	<body>
+	    <div id="app-container">
+	    	<noscript>
+	    		<div>
+	    			<span>
+	    				JavaScript must be enabled!
+    				</span>
+    			</div>
+		    </noscript>
+	    </div>
+	    
+	    <% for (var js in htmlWebpackPlugin.files.js) { 
+			%><script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[js] %>"></script><%
+		} %>
+	</body>
+</html>
