@@ -18,6 +18,11 @@ export default function (state = defaultState, action) {
         requesting: true,
       });
     case SUCCESS_LOGIN:
+      try {
+        localStorage.setItem('jwt', action.token);
+      } catch (err) {
+        // do nothing
+      }
       return Object.assign({}, state, {
         requesting: false,
         token: action.token,
