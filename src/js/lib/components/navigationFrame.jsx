@@ -9,8 +9,8 @@ const links = [
     name: 'react-redux-starter',
   },
   {
-    to: '/counter',
-    name: 'Counter',
+    to: '/login',
+    name: 'Login',
   },
 ];
 

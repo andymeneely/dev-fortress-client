@@ -6,12 +6,13 @@ import {
   Router,
   Route,
   browserHistory,
-  IndexRoute,
+  IndexRoute
 } from 'react-router';
 
-import counter from 'modules/counter';
+import authentication from 'modules/authentication';
 import Home from 'lib/components/connectedHome';
 import NavigationFrame from 'lib/components/navigationFrame';
+
 import DevTools from 'lib/components/devTools';
 import Store from './store';
 
@@ -23,7 +24,7 @@ const App = () => (
     <Router history={history}>
       <Route path="/" component={NavigationFrame}>
         <IndexRoute component={Home} />
-        <Route path="counter" component={counter.Counter} />
+        <Route path="login" component={authentication.LoginView} />
       </Route>
     </Router>
   </div>

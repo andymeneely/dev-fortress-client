@@ -4,10 +4,10 @@ import { routerReducer } from 'react-router-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-import counter from 'modules/counter';
+import authentication from 'modules/authentication';
 
 const reducer = combineReducers({
-  [counter.constants.name]: counter.reducer,
+  [authentication.constants.name]: authentication.reducer,
   routing: routerReducer,
 });
 
