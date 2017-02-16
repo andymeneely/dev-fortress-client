@@ -14,6 +14,8 @@ import Home from 'lib/components/connectedHome';
 import NavigationFrame from 'lib/components/navigationFrame';
 
 import DevTools from 'lib/components/devTools';
+import { redirectIfLoggedIn } from 'lib/routerHooks';
+
 import Store from './store';
 
 const history = syncHistoryWithStore(browserHistory, Store);
@@ -24,7 +26,11 @@ const App = () => (
     <Router history={history}>
       <Route path="/" component={NavigationFrame}>
         <IndexRoute component={Home} />
-        <Route path="login" component={authentication.LoginView} />
+        <Route
+          path="login"
+          component={authentication.LoginView}
+          onEnter={redirectIfLoggedIn}
+        />
       </Route>
     </Router>
   </div>
