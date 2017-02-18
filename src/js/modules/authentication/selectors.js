@@ -1,8 +1,16 @@
+import { createSelector } from 'reselect';
 
-
-// import { createSelector } from 'reselect';
-// import from reselect if you're using it
-
+import jwtDecode from 'jwt-decode';
 import { name } from './constants';
 
-export const exampleStateSelector = state => state[name].exampleState;
+const getJwt = state => state[name].token;
+export const isAuthenticated = createSelector(
+  getJwt,
+  jwt => !!jwt
+);
+
+export const decodeJwt = createSelector(
+  getJwt,
+  jwt => (jwt ? jwtDecode(jwt) : null)
+);
+
