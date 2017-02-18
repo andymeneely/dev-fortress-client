@@ -1,16 +1,12 @@
 
 
 import React from 'react';
-import NavigationBar from './navigationBar';
+import NavigationBar from './NavigationBar';
 
 const links = [
   {
     to: '/',
     name: 'react-redux-starter',
-  },
-  {
-    to: '/login',
-    name: 'Login',
   },
 ];
 

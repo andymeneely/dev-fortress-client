@@ -35,20 +35,52 @@ function createNavigationLink(linkData) {
   );
 }
 
+function createLoginLink(isAuthenticated, logout) {
+  if (isAuthenticated) {
+    // return the logout link
+    return (
+      <Link
+        onClick={logout}
+        style={navigationLinkStyle}
+        to="/"
+      >
+        Logout
+      </Link>
+    );
+  }
+  // return the login link
+  return (
+    <Link
+      style={navigationLinkStyle}
+      to="/login"
+    >
+      Login
+    </Link>
+  );
+}
+
 const NavigationBar = props => (
   <div className="navigation-bar" style={navigationBarStyle}>
     <ul style={navigationListStyle}>
       {props.links.map(createNavigationLink)}
+    </ul>
+    <ul style={Object.assign({}, navigationListStyle, { textAlign: 'right' })}>
+      <li style={{ display: 'inline-block' }}>
+        {createLoginLink(props.isAuthenticated, props.logout)}
+      </li>
     </ul>
   </div>
 );
 
 NavigationBar.propTypes = {
   links: React.PropTypes.arrayOf(React.PropTypes.object),
+  isAuthenticated: React.PropTypes.bool.isRequired,
+  logout: React.PropTypes.func.isRequired,
 };
 
 NavigationBar.defaultProps = {
   links: [],
+  logout: () => {},
 };
 
 export default NavigationBar;

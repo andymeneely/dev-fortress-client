@@ -1,7 +1,8 @@
 import {
     REQUEST_LOGIN,
     SUCCESS_LOGIN,
-    FAIL_LOGIN
+    FAIL_LOGIN,
+    LOGOUT
 } from './actionTypes';
 
 const defaultState = {
@@ -31,6 +32,10 @@ export default function (state = defaultState, action) {
       return Object.assign({}, state, {
         requesting: false,
         error: action.error,
+        token: null,
+      });
+    case LOGOUT:
+      return Object.assign({}, state, {
         token: null,
       });
     default:

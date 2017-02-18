@@ -26,3 +26,10 @@ export function requestLogin(username, password) {
       return dispatch(successLogin(data));
     });
 }
+
+export function logout() {
+  Location.reload();
+  return {
+    type: actions.LOGOUT,
+  };
+}
