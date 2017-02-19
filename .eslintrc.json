@@ -4,7 +4,14 @@
         "no-console": 0,
         "react/jsx-boolean-value": [2, "always"],
         "react/prop-types": [2, {"ignore": ["children"]}],
-        "import/prefer-default-export": 0
+        "import/prefer-default-export": 0,
+        "comma-dangle": ["error", {
+          "arrays": "always-multiline",
+          "objects": "always-multiline",
+          "imports": "never",
+          "exports": "never",
+          "functions": "never"
+        }]
     },
     "plugins": [
         "import"
