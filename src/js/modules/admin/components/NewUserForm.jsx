@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-class LoginForm extends React.Component {
+class NewUserForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -12,7 +11,7 @@ class LoginForm extends React.Component {
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleRegistrationClick = this.handleRegistrationClick.bind(this);
   }
 
   handleUsernameChange(event) {
@@ -21,19 +20,13 @@ class LoginForm extends React.Component {
     });
   }
 
+  handleRegistrationClick(event) {
+    this.props.onRegisterUserClick();
+  }
+
   handlePasswordChange(event) {
-    this.setState({
-      passwordValue: event.target.value,
-    });
+    this.props.onRegisterUserClick();
   }
-
-  handleLoginClick(event) {
-    this.props.onLoginClick(
-      this.state.usernameValue,
-      this.state.passwordValue
-    );
-  }
-
   render() {
     return (
       <div>
@@ -49,14 +42,16 @@ class LoginForm extends React.Component {
           value={this.state.passwordValue}
           onChange={this.handlePasswordChange}
         />
-        <button onClick={this.handleLoginClick} >Login</button>
       </div>
     );
   }
 }
-
-LoginForm.propTypes = {
-  onLoginClick: React.PropTypes.func.isRequired,
+NewUserForm.propTypes = {
+  onRegisterUserClick: React.PropTypes.func.isRequired,
 };
 
-export default LoginForm;
+NewUserForm.defaultProps = {
+  onRegisterUserClick: () => {}
+};
+
+export default NewUserForm;
