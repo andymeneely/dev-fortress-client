@@ -7,51 +7,87 @@ class NewUserForm extends React.Component {
     this.state = {
       usernameValue: '',
       passwordValue: '',
+      emailValue: '',
+      nameValue: '',
+      isAdminValue: false,
     };
 
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleRegistrationClick = this.handleRegistrationClick.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
-  handleUsernameChange(event) {
+  handleFieldChange(event, field) {
     this.setState({
-      usernameValue: event.target.value,
+      [field]: event.target.value,
     });
   }
 
-  handleRegistrationClick(event) {
-    this.props.onRegisterUserClick();
+  handleFormSubmit(event) {
+    event.preventDefault();
+    this.props.onSubmit(
+      this.state.usernameValue,
+      this.state.passwordValue,
+      this.state.emailValue,
+      this.state.nameValue,
+      this.state.isAdminValue
+    );
   }
 
-  handlePasswordChange(event) {
-    this.props.onRegisterUserClick();
-  }
   render() {
     return (
-      <div>
-        <h3>Username</h3>
+      <form onSubmit={this.handleFormSubmit}>
+        <label htmlFor="username">Username</label>
+        <br />
         <input
+          id="username"
           type="text"
           value={this.state.usernameValue}
-          onChange={this.handleUsernameChange}
+          onChange={event => this.handleFieldChange(event, 'usernameValue')}
         />
-        <h3>Password</h3>
+        <br />
+        <label htmlFor="password">Password</label>
+        <br />
         <input
+          id="password"
           type="password"
           value={this.state.passwordValue}
-          onChange={this.handlePasswordChange}
+          onChange={event => this.handleFieldChange(event, 'passwordValue')}
         />
-      </div>
+        <br />
+        <label htmlFor="email">Email</label>
+        <br />
+        <input
+          id="email"
+          value={this.state.emailValue}
+          onChange={event => this.handleFieldChange(event, 'emailValue')}
+        />
+        <br />
+        <label htmlFor="name">Name</label>
+        <br />
+        <input
+          id="name"
+          value={this.state.nameValue}
+          onChange={event => this.handleFieldChange(event, 'nameValue')}
+        />
+        <br />
+        <input
+          type="checkbox"
+          value={this.state.isAdminValue}
+        />Make User Admin
+        <br />
+        <div>
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
     );
   }
 }
 NewUserForm.propTypes = {
-  onRegisterUserClick: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
 };
 
 NewUserForm.defaultProps = {
-  onRegisterUserClick: () => {}
+  onSubmit: () => {},
 };
 
 export default NewUserForm;

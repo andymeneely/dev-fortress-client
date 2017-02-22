@@ -1,1 +1,3 @@
-export const ACTION_NAME = 'admin/ACTION_NAME';
+export const REQUEST_CREATE_USER = 'admin/REQUEST_CREATE_USER';
+export const SUCCESS_CREATE_USER = 'admin/SUCCESS_CREATE_USER';
+export const FAIL_CREATE_USER = 'admin/FAIL_CREATE_USER';

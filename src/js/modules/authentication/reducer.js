@@ -55,7 +55,7 @@ export default function (state = defaultState, action) {
         username: action.data.username,
         name: action.data.name,
         roles: action.data.roles,
-        isAdmin: action.data.is_admin,
+        isAdmin: !!action.data.is_admin,
       });
     case FAIL_USER_DATA:
       return Object.assign({}, state, {

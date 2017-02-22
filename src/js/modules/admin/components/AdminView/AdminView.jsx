@@ -9,16 +9,18 @@ const newUserViewStyle = {
 const AdminView = props => (
   <div style={newUserViewStyle}>
     <h1>New User</h1>
-    <NewUserForm {...props} />
+    <NewUserForm
+      onSubmit={props.onNewUserSubmit}
+    />
   </div>
 );
 
 AdminView.propTypes = {
-  onRegisterUserClick: React.PropTypes.func.isRequired,
+  onNewUserSubmit: React.PropTypes.func.isRequired,
 };
 
 AdminView.defaultProps = {
-  onRegisterUserClick: () => {},
+  onNewUserSubmit: () => {},
 };
 
 export default AdminView;
