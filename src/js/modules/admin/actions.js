@@ -38,3 +38,9 @@ export function requestCreateUser(username, password, email, name, admin) {
     );
   };
 }
+
+export function dismissAlert() {
+  return {
+    type: actions.DISMISS_ALERT,
+  };
+}

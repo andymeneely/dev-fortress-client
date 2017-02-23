@@ -1,17 +1,34 @@
 import {
-  ACTION_NAME
+  REQUEST_CREATE_USER,
+  SUCCESS_CREATE_USER,
+  FAIL_CREATE_USER
 } from './actionTypes';
 
 const defaultState = {
-  exampleState: 0,
+  requestingCreateUser: false,
+  createUserError: false,
+  message: null,
+  messageSuccess: true,
 };
 
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case ACTION_NAME:
+    case REQUEST_CREATE_USER:
       return Object.assign({}, state, {
-        exampleState: state.exampleState + 1,
+        requestingCreateUser: true,
+      });
+    case SUCCESS_CREATE_USER:
+      return Object.assign({}, state, {
+        requestingCreateUser: false,
+        message: 'User Created!',
+        messageSuccess: true,
+      });
+    case FAIL_CREATE_USER:
+      return Object.assign({}, state, {
+        requestingCreateUser: false,
+        message: action.error.error,
+        messageSuccess: false,
       });
     default:
       return state;

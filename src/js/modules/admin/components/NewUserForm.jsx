@@ -42,6 +42,18 @@ class NewUserForm extends React.Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.submitting && this.props.submitting && nextProps.success) {
+      this.setState({
+        usernameValue: '',
+        passwordValue: '',
+        emailValue: '',
+        nameValue: '',
+        isAdminValue: false,
+      });
+    }
+  }
+
   render() {
     return (
       <form onSubmit={this.handleFormSubmit}>
@@ -97,12 +109,14 @@ class NewUserForm extends React.Component {
 }
 NewUserForm.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
-  submitting: React.PropTypes.boolean,
+  submitting: React.PropTypes.bool,
+  success: React.PropTypes.bool
 };
 
 NewUserForm.defaultProps = {
   onSubmit: () => {},
   submitting: false,
+  success: false,
 
 };
 

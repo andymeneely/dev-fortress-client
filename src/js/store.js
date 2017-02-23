@@ -5,9 +5,11 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
 import authentication from 'modules/authentication';
+import admin from 'modules/admin';
 
 const reducer = combineReducers({
   [authentication.constants.name]: authentication.reducer,
+  [admin.constants.name]: admin.reducer,
   routing: routerReducer,
 });
 
@@ -27,7 +29,7 @@ const enhancer = compose(
 
 const store = createStore(
   reducer,
-  enhancer,
+  enhancer
 );
 
 export default store;
