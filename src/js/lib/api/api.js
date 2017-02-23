@@ -41,7 +41,7 @@ export function getUser(userId, token, callback) {
   });
 }
 
-export function createUser(username, password, email, name, isAdmin, callback) {
+export function createUser(username, password, email, name, isAdmin, token, callback) {
   return request({
     method: 'POST',
     url: `${BASE_URL}/user`,
@@ -51,6 +51,9 @@ export function createUser(username, password, email, name, isAdmin, callback) {
       email,
       name,
       is_admin: isAdmin,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   }, (err, res, body) => {
     if (err) {

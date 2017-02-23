@@ -14,11 +14,20 @@ class NewUserForm extends React.Component {
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.handleCheckChange = this.handleCheckChange.bind(this);
   }
 
   handleFieldChange(event, field) {
+    // console.log(event.target.checked);
     this.setState({
       [field]: event.target.value,
+    });
+  }
+
+  handleCheckChange(event, field) {
+    // console.log(event.target.checked);
+    this.setState({
+      [field]: event.target.checked,
     });
   }
 
@@ -43,6 +52,7 @@ class NewUserForm extends React.Component {
           type="text"
           value={this.state.usernameValue}
           onChange={event => this.handleFieldChange(event, 'usernameValue')}
+          disabled={this.props.submitting}
         />
         <br />
         <label htmlFor="password">Password</label>
@@ -52,6 +62,7 @@ class NewUserForm extends React.Component {
           type="password"
           value={this.state.passwordValue}
           onChange={event => this.handleFieldChange(event, 'passwordValue')}
+          disabled={this.props.submitting}
         />
         <br />
         <label htmlFor="email">Email</label>
@@ -60,6 +71,7 @@ class NewUserForm extends React.Component {
           id="email"
           value={this.state.emailValue}
           onChange={event => this.handleFieldChange(event, 'emailValue')}
+          disabled={this.props.submitting}
         />
         <br />
         <label htmlFor="name">Name</label>
@@ -68,26 +80,30 @@ class NewUserForm extends React.Component {
           id="name"
           value={this.state.nameValue}
           onChange={event => this.handleFieldChange(event, 'nameValue')}
+          disabled={this.props.submitting}
         />
         <br />
         <input
           type="checkbox"
-          value={this.state.isAdminValue}
+          checked={this.state.isAdminValue}
+          onChange={event => this.handleCheckChange(event, 'isAdminValue')}
+          disabled={this.props.submitting}
         />Make User Admin
         <br />
-        <div>
-          <input type="submit" value="Submit" />
-        </div>
+        <input type="submit" value="Submit" />
       </form>
     );
   }
 }
 NewUserForm.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
+  submitting: React.PropTypes.boolean,
 };
 
 NewUserForm.defaultProps = {
   onSubmit: () => {},
+  submitting: false,
+
 };
 
 export default NewUserForm;

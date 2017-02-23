@@ -1,4 +1,5 @@
 import { createUser } from 'lib/api';
+import AuthModule from 'modules/authentication';
 import * as actions from './actionTypes';
 
 function failCreateUser(error) {
@@ -16,7 +17,8 @@ function successCreateUser(user) {
 }
 
 export function requestCreateUser(username, password, email, name, admin) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const state = getState();
     dispatch({
       type: actions.REQUEST_CREATE_USER,
     });
@@ -26,6 +28,7 @@ export function requestCreateUser(username, password, email, name, admin) {
       email,
       name,
       admin,
+      AuthModule.selectors.getJwt(state),
       (err, data) => {
         if (err) {
           return dispatch(failCreateUser(err));
