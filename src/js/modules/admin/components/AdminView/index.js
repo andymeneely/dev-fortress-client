@@ -5,7 +5,7 @@ import { requestCreateUser } from '../../actions';
 import {
   requestingCreateUser,
   message,
-  messageSuccess,
+  messageSuccess
 } from '../../selectors';
 
 const mapStateToProps = createStructuredSelector({

@@ -17,6 +17,18 @@ class NewUserForm extends React.Component {
     this.handleCheckChange = this.handleCheckChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.submitting && this.props.submitting && nextProps.success) {
+      this.setState({
+        usernameValue: '',
+        passwordValue: '',
+        emailValue: '',
+        nameValue: '',
+        isAdminValue: false,
+      });
+    }
+  }
+
   handleFieldChange(event, field) {
     // console.log(event.target.checked);
     this.setState({
@@ -42,17 +54,6 @@ class NewUserForm extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.submitting && this.props.submitting && nextProps.success) {
-      this.setState({
-        usernameValue: '',
-        passwordValue: '',
-        emailValue: '',
-        nameValue: '',
-        isAdminValue: false,
-      });
-    }
-  }
 
   render() {
     return (
@@ -110,7 +111,7 @@ class NewUserForm extends React.Component {
 NewUserForm.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
   submitting: React.PropTypes.bool,
-  success: React.PropTypes.bool
+  success: React.PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 };
 
 NewUserForm.defaultProps = {

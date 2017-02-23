@@ -7,7 +7,7 @@ const ConnectedHome = connect(
     }),
     () => ({
 
-    }),
+    })
 )(Home);
 
 export default ConnectedHome;

@@ -27,7 +27,7 @@ class LoginForm extends React.Component {
     });
   }
 
-  handleLoginClick(event) {
+  handleLoginClick() {
     this.props.onLoginClick(
       this.state.usernameValue,
       this.state.passwordValue

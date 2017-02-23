@@ -4,7 +4,7 @@ import LoginView from './LoginView';
 
 import { requestLogin } from '../../actions';
 
-const MapStateToProps = state => ({});
+const MapStateToProps = () => ({});
 const MapDispatchToProps = dispatch => ({
   onLoginClick: (username, password) => dispatch(requestLogin(username, password)),
 });

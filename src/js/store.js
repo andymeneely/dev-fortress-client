@@ -23,7 +23,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const enhancer = compose(
-  ...enhancements,
+  ...enhancements
 );
 
 
