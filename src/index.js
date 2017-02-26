@@ -28,8 +28,8 @@ ReactDOM.render(
   React.createElement(
       Provider,
       { store: Store },
-      React.createElement(App, appProps),
+      React.createElement(App, appProps)
   ),
-  document.getElementById('app-container'),
+  document.getElementById('app-container')
 );
 

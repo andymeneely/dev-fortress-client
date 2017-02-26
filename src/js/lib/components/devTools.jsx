@@ -17,7 +17,7 @@ const DevTools = createDevTools(
   >
     <LogMonitor />
     <SliderMonitor keyboardEnabled={true} />
-  </DockMonitor>,
-  );
+  </DockMonitor>
+);
 
 export default DevTools;

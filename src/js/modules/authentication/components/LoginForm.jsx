@@ -27,11 +27,11 @@ class LoginForm extends React.Component {
     });
   }
 
-  handleLoginClick(event) {
+  handleLoginClick() {
     this.props.onLoginClick(
       this.state.usernameValue,
-      this.state.passwordValue,
-    )
+      this.state.passwordValue
+    );
   }
 
   render() {
@@ -49,14 +49,14 @@ class LoginForm extends React.Component {
           value={this.state.passwordValue}
           onChange={this.handlePasswordChange}
         />
-        <button  onClick={this.handleLoginClick} >Login</button>
+        <button onClick={this.handleLoginClick} >Login</button>
       </div>
     );
   }
 }
 
 LoginForm.propTypes = {
-  onLoginClick: React.PropTypes.func.isRequired
-}
+  onLoginClick: React.PropTypes.func.isRequired,
+};
 
 export default LoginForm;

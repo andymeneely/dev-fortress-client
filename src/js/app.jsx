@@ -10,11 +10,12 @@ import {
 } from 'react-router';
 
 import authentication from 'modules/authentication';
+import adminModule from 'modules/admin';
 import Home from 'lib/components/connectedHome';
 import NavigationFrame from 'lib/components/navigationFrame';
 
 import DevTools from 'lib/components/devTools';
-import { redirectIfLoggedIn } from 'lib/routerHooks';
+import { redirectIfLoggedIn, isAuthenticated } from 'lib/routerHooks';
 
 import Store from './store';
 
@@ -30,6 +31,11 @@ const App = () => (
           path="login"
           component={authentication.LoginView}
           onEnter={redirectIfLoggedIn}
+        />
+        <Route
+          path="admin"
+          component={adminModule.AdminView}
+          onEnter={isAuthenticated}
         />
       </Route>
     </Router>
