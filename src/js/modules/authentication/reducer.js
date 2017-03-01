@@ -5,7 +5,10 @@ import {
     LOGOUT,
     REQUEST_USER_DATA,
     SUCCESS_USER_DATA,
-    FAIL_USER_DATA
+    FAIL_USER_DATA,
+    REQUEST_REFRESH_TOKEN,
+    SUCCESS_REFRESH_TOKEN,
+    FAIL_REFRESH_TOKEN
 } from './actionTypes';
 
 const defaultState = {
@@ -16,6 +19,7 @@ const defaultState = {
   name: null,
   roles: [],
   isAdmin: false,
+  refreshingToken: false,
 };
 
 
@@ -42,6 +46,11 @@ export default function (state = defaultState, action) {
         token: null,
       });
     case LOGOUT:
+      try {
+        localStorage.removeItem('jwt');
+      } catch (err) {
+        // do nothing
+      }
       return Object.assign({}, state, {
         token: null,
       });
@@ -61,6 +70,15 @@ export default function (state = defaultState, action) {
       return Object.assign({}, state, {
         requesting: false,
         error: action.error,
+      });
+    case REQUEST_REFRESH_TOKEN:
+      return Object.assign({}, state, {
+        refreshingToken: true,
+      });
+    case SUCCESS_REFRESH_TOKEN:
+      return Object.assign({}, state, {
+        refreshingToken: false,
+        token: action.token,
       });
     default:
       return state;

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { logout } from '../../actions';
+import { requestRefreshToken } from '../../actions';
 import { jwtExpiration } from '../../selectors';
 import TokenWatchdog from './TokenWatchdog';
 
@@ -10,8 +10,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
-  refreshToken: () => {},
+  refreshToken: () => dispatch(requestRefreshToken()),
 });
 
 const ConnectedTokenWatchdog = connect(

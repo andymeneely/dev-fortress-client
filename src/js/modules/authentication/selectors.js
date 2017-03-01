@@ -16,6 +16,6 @@ export const decodeJwt = createSelector(
 );
 
 export const jwtExpiration = createSelector(
-  getJwt,
+  decodeJwt,
   jwt => (jwt ? jwt.exp : null)
 );

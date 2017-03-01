@@ -10,9 +10,13 @@ class TokenWatchdog extends React.Component {
     this.handleTokenChange = this.handleTokenChange.bind(this);
   }
 
+  componentDidMount() {
+    this.handleTokenChange(this.props.expirationTime);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.expirationTime !== this.props.expirationTime) {
-      this.handleTokenChange(this.props.expirationTime);
+      this.handleTokenChange(nextProps.expirationTime);
     }
   }
 
@@ -21,8 +25,8 @@ class TokenWatchdog extends React.Component {
     if (this.state.refreshTimeout) clearTimeout(this.state.refreshTimeout);
 
     if (expirationTime) {
-      const expiryDiff = this.props.expirationTime - Math.floor(Date.now() / 1000);
-      if (expiryDiff <= 3600000) { // if token expires in less than an hour
+      const expiryDiff = expirationTime - (Math.floor(Date.now() / 1000));
+      if (expiryDiff <= 36000) { // if token expires in less than an hour
         this.props.refreshToken();
       } else {
         refreshTimeout = setTimeout(() => {
@@ -36,6 +40,7 @@ class TokenWatchdog extends React.Component {
     });
   }
 
+
   render() {
     return React.createElement('div');
   }
@@ -43,8 +48,12 @@ class TokenWatchdog extends React.Component {
 }
 
 TokenWatchdog.propTypes = {
-  expirationTime: React.PropTypes.number.isRequired,
+  expirationTime: React.PropTypes.number,
   refreshToken: React.PropTypes.func.isRequired,
+};
+
+TokenWatchdog.defaultProps = {
+  expirationTime: 0,
 };
 
 

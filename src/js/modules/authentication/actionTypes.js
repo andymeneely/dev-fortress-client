@@ -5,3 +5,6 @@ export const LOGOUT = 'authentication/LOGOUT';
 export const REQUEST_USER_DATA = 'authentication/REQUEST_USER_DATA';
 export const SUCCESS_USER_DATA = 'authentication/SUCCESS_USER_DATA';
 export const FAIL_USER_DATA = 'authentication/FAIL_USER_DATA';
+export const REQUEST_REFRESH_TOKEN = 'authentication/REQUEST_REFRESH_TOKEN';
+export const SUCCESS_REFRESH_TOKEN = 'authentication/SUCCESS_REFRESH_TOKEN';
+export const FAIL_REFRESH_TOKEN = 'authentication/FAIL_REFRESH_TOKEN';

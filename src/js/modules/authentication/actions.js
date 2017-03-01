@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router';
-import { login, getUser } from 'lib/api';
+import { login, getUser, refreshToken } from 'lib/api';
 import * as actions from './actionTypes';
 import { getJwt, decodeJwt } from './selectors';
 
@@ -60,6 +60,36 @@ export function requestLogin(username, password) {
         return dispatch(failLogin(err));
       }
       return dispatch(successLogin(data));
+    });
+  };
+}
+
+function successRefreshToken(response) {
+  return {
+    type: actions.SUCCESS_REFRESH_TOKEN,
+    token: response.token,
+  };
+}
+
+function failRefreshToken(error) {
+  return {
+    type: actions.FAIL_REFRESH_TOKEN,
+    error,
+  };
+}
+
+export function requestRefreshToken() {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actions.REQUEST_REFRESH_TOKEN,
+    });
+
+    const state = getState();
+    refreshToken(getJwt(state), (erdmann, data) => {
+      if (erdmann) {
+        return dispatch(failRefreshToken(erdmann));
+      }
+      return dispatch(successRefreshToken(data));
     });
   };
 }

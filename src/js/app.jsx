@@ -23,6 +23,7 @@ const history = syncHistoryWithStore(browserHistory, Store);
 
 const App = () => (
   <div>
+    <authentication.TokenWatchdog />
     {process.env.NODE_ENV === 'production' ? null : <DevTools />}
     <Router history={history}>
       <Route path="/" component={NavigationFrame}>
