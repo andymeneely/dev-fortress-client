@@ -8,3 +8,4 @@ export const FAIL_USER_DATA = 'authentication/FAIL_USER_DATA';
 export const REQUEST_REFRESH_TOKEN = 'authentication/REQUEST_REFRESH_TOKEN';
 export const SUCCESS_REFRESH_TOKEN = 'authentication/SUCCESS_REFRESH_TOKEN';
 export const FAIL_REFRESH_TOKEN = 'authentication/FAIL_REFRESH_TOKEN';
+export const LOAD_TOKEN = 'authentication/LOAD_TOKEN';

@@ -11,7 +11,8 @@ class TokenWatchdog extends React.Component {
   }
 
   componentDidMount() {
-    this.handleTokenChange(this.props.expirationTime);
+    // this.handleTokenChange(this.props.expirationTime);
+    this.props.loadToken();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,6 +51,7 @@ class TokenWatchdog extends React.Component {
 TokenWatchdog.propTypes = {
   expirationTime: React.PropTypes.number,
   refreshToken: React.PropTypes.func.isRequired,
+  loadToken: React.PropTypes.func.isRequired,
 };
 
 TokenWatchdog.defaultProps = {

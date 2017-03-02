@@ -8,7 +8,8 @@ import {
     FAIL_USER_DATA,
     REQUEST_REFRESH_TOKEN,
     SUCCESS_REFRESH_TOKEN,
-    FAIL_REFRESH_TOKEN
+    FAIL_REFRESH_TOKEN,
+    LOAD_TOKEN,
 } from './actionTypes';
 
 const defaultState = {
@@ -30,11 +31,6 @@ export default function (state = defaultState, action) {
         requesting: true,
       });
     case SUCCESS_LOGIN:
-      try {
-        localStorage.setItem('jwt', action.token);
-      } catch (err) {
-        // do nothing
-      }
       return Object.assign({}, state, {
         requesting: false,
         token: action.token,
@@ -46,11 +42,6 @@ export default function (state = defaultState, action) {
         token: null,
       });
     case LOGOUT:
-      try {
-        localStorage.removeItem('jwt');
-      } catch (err) {
-        // do nothing
-      }
       return Object.assign({}, state, {
         token: null,
       });
@@ -78,6 +69,14 @@ export default function (state = defaultState, action) {
     case SUCCESS_REFRESH_TOKEN:
       return Object.assign({}, state, {
         refreshingToken: false,
+        token: action.token,
+      });
+    case FAIL_REFRESH_TOKEN:
+      return Object.assign({}, state, {
+        error: action.error,
+      });
+    case LOAD_TOKEN:
+      return Object.assign({}, state, {
         token: action.token,
       });
     default:

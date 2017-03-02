@@ -32,12 +32,17 @@ function requestUserData() {
   };
 }
 
-export function successLogin(response) {
+export function successLogin(token) {
+  try {
+    localStorage.setItem('jwt', token);
+  } catch (err) {
+    // do nothing
+  }
   browserHistory.push('/');
   return (dispatch) => {
     dispatch({
       type: actions.SUCCESS_LOGIN,
-      token: response.token,
+      token,
     });
     return dispatch(requestUserData());
   };
@@ -59,7 +64,7 @@ export function requestLogin(username, password) {
       if (err) {
         return dispatch(failLogin(err));
       }
-      return dispatch(successLogin(data));
+      return dispatch(successLogin(data.token));
     });
   };
 }
@@ -94,8 +99,31 @@ export function requestRefreshToken() {
   };
 }
 
+export function attemptLoadToken() {
+  return (dispatch) => {
+    dispatch({
+      type: actions.LOAD_TOKEN,
+    });
+    let token = null;
+    try {
+      token = localStorage.getItem('jwt');
+    } catch (err) {
+      // do nothing
+      return;
+    }
+    if (token) {
+      dispatch(successLogin(token));
+    }
+  };
+}
+
 export function logout() {
-  Location.reload();
+  try {
+    localStorage.removeItem('jwt');
+  } catch (err) {
+    // do nothing
+  }
+  window.location.reload();
   return {
     type: actions.LOGOUT,
   };
