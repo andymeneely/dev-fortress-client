@@ -11,7 +11,6 @@ class TokenWatchdog extends React.Component {
   }
 
   componentDidMount() {
-    // this.handleTokenChange(this.props.expirationTime);
     this.props.loadToken();
   }
 
