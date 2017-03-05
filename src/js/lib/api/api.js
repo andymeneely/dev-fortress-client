@@ -5,7 +5,7 @@ export const BASE_URL = 'http://localhost:3000/api';
 export function login(username, password, callback) {
   return request({
     method: 'POST',
-    url: `${BASE_URL}/login`,
+    url: `${BASE_URL}/user/login`,
     json: {
       username,
       password,
@@ -66,3 +66,21 @@ export function createUser(username, password, email, name, isAdmin, token, call
   });
 }
 
+export function refreshToken(token, callback) {
+  return request({
+    method: 'POST',
+    url: `${BASE_URL}/user/refresh`,
+    json: {},
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+    return callback(null, body);
+  });
+}

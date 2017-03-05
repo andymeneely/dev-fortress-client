@@ -5,7 +5,11 @@ import {
     LOGOUT,
     REQUEST_USER_DATA,
     SUCCESS_USER_DATA,
-    FAIL_USER_DATA
+    FAIL_USER_DATA,
+    REQUEST_REFRESH_TOKEN,
+    SUCCESS_REFRESH_TOKEN,
+    FAIL_REFRESH_TOKEN,
+    LOAD_TOKEN,
 } from './actionTypes';
 
 const defaultState = {
@@ -16,6 +20,7 @@ const defaultState = {
   name: null,
   roles: [],
   isAdmin: false,
+  refreshingToken: false,
 };
 
 
@@ -26,11 +31,6 @@ export default function (state = defaultState, action) {
         requesting: true,
       });
     case SUCCESS_LOGIN:
-      try {
-        localStorage.setItem('jwt', action.token);
-      } catch (err) {
-        // do nothing
-      }
       return Object.assign({}, state, {
         requesting: false,
         token: action.token,
@@ -61,6 +61,23 @@ export default function (state = defaultState, action) {
       return Object.assign({}, state, {
         requesting: false,
         error: action.error,
+      });
+    case REQUEST_REFRESH_TOKEN:
+      return Object.assign({}, state, {
+        refreshingToken: true,
+      });
+    case SUCCESS_REFRESH_TOKEN:
+      return Object.assign({}, state, {
+        refreshingToken: false,
+        token: action.token,
+      });
+    case FAIL_REFRESH_TOKEN:
+      return Object.assign({}, state, {
+        error: action.error,
+      });
+    case LOAD_TOKEN:
+      return Object.assign({}, state, {
+        token: action.token,
       });
     default:
       return state;

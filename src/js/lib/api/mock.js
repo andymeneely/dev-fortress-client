@@ -29,8 +29,8 @@ const mockUsers = [
 ];
 
 const mockTokens = {
-  admin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjB9.luswNymj4MFNkzYgXSGeuh2S0Hn2nH-3P6IT7Al03xU',
-  meneely: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjF9.s4vE0w6cUg68FMf7GjCRpweMCQ92MdFjYM5apky7MHE',
+  admin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjAsImlhdCI6MTQ4ODE0NjI4MiwiZXhwIjoxNTg4MTQ4MDgyfQ.k0flOL57viBTyt4TqnVpDOj371EVDbc8Do0l_mGcq7k',
+  meneely: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODE0NjI4MiwiZXhwIjoxNTg4MTQ4MDgyfQ.EC92y5uMX27yEj8jAMuYf3zEJcn4zBsK3dCWXI7tAmU',
 };
 
 export function login(username, password, callback) {
@@ -60,7 +60,7 @@ export function getUser(userId, token, callback) {
   , LATENCY);
 }
 
-export function createUser(username, password, email, name, isAdmin, callback) {
+export function createUser(username, password, email, name, isAdmin, token, callback) {
   setTimeout(
     () => {
       const newUser = {
@@ -79,3 +79,10 @@ export function createUser(username, password, email, name, isAdmin, callback) {
     }
   , LATENCY);
 }
+
+export function refreshToken(token, callback) {
+  setTimeout(
+    () => callback(null, { token }),
+    LATENCY);
+}
+

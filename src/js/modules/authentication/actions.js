@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router';
-import { login, getUser } from 'lib/api';
+import { login, getUser, refreshToken } from 'lib/api';
 import * as actions from './actionTypes';
 import { getJwt, decodeJwt } from './selectors';
 
@@ -32,12 +32,17 @@ function requestUserData() {
   };
 }
 
-export function successLogin(response) {
+export function successLogin(token) {
+  try {
+    localStorage.setItem('jwt', token);
+  } catch (err) {
+    // do nothing
+  }
   browserHistory.push('/');
   return (dispatch) => {
     dispatch({
       type: actions.SUCCESS_LOGIN,
-      token: response.token,
+      token,
     });
     return dispatch(requestUserData());
   };
@@ -59,13 +64,66 @@ export function requestLogin(username, password) {
       if (err) {
         return dispatch(failLogin(err));
       }
-      return dispatch(successLogin(data));
+      return dispatch(successLogin(data.token));
     });
   };
 }
 
+function successRefreshToken(response) {
+  return {
+    type: actions.SUCCESS_REFRESH_TOKEN,
+    token: response.token,
+  };
+}
+
+function failRefreshToken(error) {
+  return {
+    type: actions.FAIL_REFRESH_TOKEN,
+    error,
+  };
+}
+
+export function requestRefreshToken() {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actions.REQUEST_REFRESH_TOKEN,
+    });
+
+    const state = getState();
+    refreshToken(getJwt(state), (erdmann, data) => {
+      if (erdmann) {
+        return dispatch(failRefreshToken(erdmann));
+      }
+      return dispatch(successRefreshToken(data));
+    });
+  };
+}
+
+export function attemptLoadToken() {
+  return (dispatch) => {
+    dispatch({
+      type: actions.LOAD_TOKEN,
+    });
+    let token = null;
+    try {
+      token = localStorage.getItem('jwt');
+    } catch (err) {
+      // do nothing
+      return;
+    }
+    if (token) {
+      dispatch(successLogin(token));
+    }
+  };
+}
+
 export function logout() {
-  Location.reload();
+  try {
+    localStorage.removeItem('jwt');
+  } catch (err) {
+    // do nothing
+  }
+  window.location.reload();
   return {
     type: actions.LOGOUT,
   };
