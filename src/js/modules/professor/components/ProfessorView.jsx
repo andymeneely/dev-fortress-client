@@ -1,6 +1,6 @@
 // this is where we'll put the button
 import React from 'react';
-import { link } from 'react-router';
+import { Link } from 'react-router';
 
 const ProfessorViewStyle = {
   width: '100%',
@@ -9,9 +9,9 @@ const ProfessorViewStyle = {
 
 const ProfessorView = () => (
   <div style={ProfessorViewStyle}>
-    <link to="/professor/createGame">
+    <Link to="/professor/createGame">
       Create Game
-    </link>
+    </Link>
   </div>
 );
 

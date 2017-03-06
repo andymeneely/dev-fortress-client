@@ -41,9 +41,9 @@ const App = () => (
         />
         <Route
           path="professor"
-          component={professorModule.ProfessorView}
           onEnter={isAuthenticated}
         >
+          <IndexRoute component={professorModule.ProfessorView} />
           <Route
             path="createGame"
             component={professorModule.GameCreation}
