@@ -1,24 +1,18 @@
 // this is where we'll put the button
 import React from 'react';
+import { link } from 'react-router';
 
-import ProfessorView from './ProfessorView';
+const ProfessorViewStyle = {
+  width: '100%',
+  height: '100%',
+};
 
-import { createGame } from '../actions';
-
-ProfessorView = () => (
-  <div>
-    <button
-      onSubmit={createGame}
-    />
+const ProfessorView = () => (
+  <div style={ProfessorViewStyle}>
+    <link to="/professor/createGame">
+      Create Game
+    </link>
   </div>
 );
-
-ProfessorView.propTypes = {
-  onCreateGameSubmit: React.PropTypes.func.isRequired,
-};
-
-ProfessorView.defaultProps = {
-  onCreateGameSubmit: () => {},
-};
 
 export default ProfessorView;
