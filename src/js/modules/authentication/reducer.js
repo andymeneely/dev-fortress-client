@@ -9,7 +9,7 @@ import {
     REQUEST_REFRESH_TOKEN,
     SUCCESS_REFRESH_TOKEN,
     FAIL_REFRESH_TOKEN,
-    LOAD_TOKEN,
+    LOAD_TOKEN
 } from './actionTypes';
 
 const defaultState = {

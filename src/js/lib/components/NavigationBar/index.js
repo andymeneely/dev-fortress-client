@@ -6,6 +6,7 @@ import NavigationBar from './NavigationBar';
 const mapStateToProps = createStructuredSelector({
   isAuthenticated: AuthenticationModule.selectors.isAuthenticated,
   isAdmin: AuthenticationModule.selectors.isAdmin,
+  userRoles: AuthenticationModule.selectors.getRoles,
 });
 
 

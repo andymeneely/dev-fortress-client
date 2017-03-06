@@ -49,6 +49,20 @@ function createAdminLink(isAdmin) {
   return null;
 }
 
+function createProfessorLink(userRoles) {
+  if (userRoles.includes('professor')) {
+    return (
+      <Link
+        style={navigationLinkStyle}
+        to="/professor"
+      >
+      Professor
+      </Link>
+    );
+  }
+  return null;
+}
+
 function createLoginLink(isAuthenticated, logout) {
   if (isAuthenticated) {
     // return the logout link
@@ -80,6 +94,9 @@ const NavigationBar = props => (
     </ul>
     <ul style={Object.assign({}, navigationListStyle, { textAlign: 'right' })}>
       <li style={{ display: 'inline-block' }}>
+        {createProfessorLink(props.userRoles)}
+      </li>
+      <li style={{ display: 'inline-block' }}>
         {createAdminLink(props.isAdmin)}
       </li>
       <li style={{ display: 'inline-block' }}>
@@ -93,6 +110,7 @@ NavigationBar.propTypes = {
   links: React.PropTypes.arrayOf(React.PropTypes.object),
   isAuthenticated: React.PropTypes.bool.isRequired,
   isAdmin: React.PropTypes.bool,
+  userRoles: React.PropTypes.arrayOf(React.PropTypes.string),
   logout: React.PropTypes.func.isRequired,
 };
 
@@ -100,6 +118,7 @@ NavigationBar.defaultProps = {
   links: [],
   logout: () => {},
   isAdmin: false,
+  userRoles: [],
 };
 
 export default NavigationBar;
