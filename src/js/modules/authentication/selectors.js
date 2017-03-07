@@ -19,3 +19,7 @@ export const jwtExpiration = createSelector(
   decodeJwt,
   jwt => (jwt ? jwt.exp : null)
 );
+
+export const getRoles = state => state[name].roles.map(
+  r => r.name
+);

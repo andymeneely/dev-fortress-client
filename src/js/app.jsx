@@ -11,6 +11,7 @@ import {
 
 import authentication from 'modules/authentication';
 import adminModule from 'modules/admin';
+import professorModule from 'modules/professor';
 import Home from 'lib/components/connectedHome';
 import NavigationFrame from 'lib/components/navigationFrame';
 
@@ -38,6 +39,17 @@ const App = () => (
           component={adminModule.AdminView}
           onEnter={isAuthenticated}
         />
+        <Route
+          path="professor"
+          onEnter={isAuthenticated}
+        >
+          <IndexRoute component={professorModule.ProfessorView} />
+          <Route
+            path="createGame"
+            component={professorModule.GameCreation}
+            onEnter={isAuthenticated}
+          />
+        </Route>
       </Route>
     </Router>
   </div>
