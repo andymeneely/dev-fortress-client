@@ -1,3 +1,1 @@
-"use strict";
-
-export const name = "professor";
+export const name = 'professor';

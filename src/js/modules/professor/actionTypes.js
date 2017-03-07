@@ -1,3 +1,1 @@
-"use strict";
-
-export const ACTION_NAME = "professor/ACTION_NAME";
+export const ACTION_NAME = 'professor/ACTION_NAME';
