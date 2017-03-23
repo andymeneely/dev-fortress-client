@@ -6,7 +6,7 @@ import { requestLogin } from '../../actions';
 
 const MapStateToProps = () => ({});
 const MapDispatchToProps = dispatch => ({
-  onLoginClick: (username, password) => dispatch(requestLogin(username, password)),
+  onSubmit: (username, password) => dispatch(requestLogin(username, password)),
 });
 
 const ConnectedLoginView = connect(
