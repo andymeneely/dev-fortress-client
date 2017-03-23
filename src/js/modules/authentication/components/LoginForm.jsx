@@ -25,14 +25,12 @@ class LoginForm extends React.Component {
   }
 
   handleFieldChange(event, field) {
-    // console.log(event.target.checked);
     this.setState({
       [field]: event.target.value,
     });
   }
 
   handleCheckChange(event, field) {
-    // console.log(event.target.checked);
     this.setState({
       [field]: event.target.checked,
     });
