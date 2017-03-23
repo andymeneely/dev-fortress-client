@@ -10,10 +10,34 @@ class LoginForm extends React.Component {
       passwordValue: '',
     };
 
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.handleCheckChange = this.handleCheckChange.bind(this);
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.submitting && this.props.submitting && nextProps.success) {
+      this.setState({
+        usernameValue: '',
+        passwordValue: '',
+      });
+    }
+  }
+
+  handleFieldChange(event, field) {
+    // console.log(event.target.checked);
+    this.setState({
+      [field]: event.target.value,
+    });
+  }
+
+  handleCheckChange(event, field) {
+    // console.log(event.target.checked);
+    this.setState({
+      [field]: event.target.checked,
+    });
+  }
+
 
   handleUsernameChange(event) {
     this.setState({
@@ -26,9 +50,9 @@ class LoginForm extends React.Component {
       passwordValue: event.target.value,
     });
   }
-
-  handleLoginClick() {
-    this.props.onLoginClick(
+  handleFormSubmit(event) {
+    event.preventDefault();
+    this.props.onSubmit(
       this.state.usernameValue,
       this.state.passwordValue
     );
@@ -36,27 +60,44 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Username</h3>
+      <form onSubmit={this.handleFormSubmit}>
+        <label htmlFor="username">Username</label>
+        <br />
         <input
+          id="username"
           type="text"
           value={this.state.usernameValue}
-          onChange={this.handleUsernameChange}
+          onChange={event => this.handleFieldChange(event, 'usernameValue')}
+          disabled={this.props.submitting}
         />
-        <h3>Password</h3>
+        <br />
+        <label htmlFor="password">Password</label>
+        <br />
         <input
+          id="password"
           type="password"
           value={this.state.passwordValue}
-          onChange={this.handlePasswordChange}
+          onChange={event => this.handleFieldChange(event, 'passwordValue')}
+          disabled={this.props.submitting}
         />
-        <button onClick={this.handleLoginClick} >Login</button>
-      </div>
+        <br />
+        <button onSubmit={this.handleFormSubmit}> Login </button>
+      </form>
     );
   }
 }
 
 LoginForm.propTypes = {
-  onLoginClick: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
+  submitting: React.PropTypes.bool,
+  success: React.PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+
+};
+
+LoginForm.defaultProps = {
+  onSubmit: () => {},
+  submitting: false,
+  success: false,
 };
 
 export default LoginForm;
