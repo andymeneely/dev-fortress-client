@@ -14,7 +14,7 @@ const LoginView = props => (
 );
 
 LoginView.propTypes = {
-  onLoginClick: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
 };
 
 export default LoginView;
