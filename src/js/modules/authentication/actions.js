@@ -99,6 +99,22 @@ export function requestRefreshToken() {
   };
 }
 
+export function successLoadToken(token) {
+  return (dispatch) => {
+    dispatch({
+      type: actions.SUCCESS_LOAD_TOKEN,
+      token,
+    });
+    return dispatch(requestUserData());
+  };
+}
+
+export function failLoadToken() {
+  return {
+    type: actions.FAIL_LOAD_TOKEN,
+  };
+}
+
 export function attemptLoadToken() {
   return (dispatch) => {
     dispatch({
@@ -112,7 +128,9 @@ export function attemptLoadToken() {
       return;
     }
     if (token) {
-      dispatch(successLogin(token));
+      dispatch(successLoadToken(token));
+    } else {
+      dispatch(failLoadToken());
     }
   };
 }
@@ -126,5 +144,11 @@ export function logout() {
   window.location.reload();
   return {
     type: actions.LOGOUT,
+  };
+}
+
+export function initialized() {
+  return {
+    type: actions.INITIALIZED,
   };
 }

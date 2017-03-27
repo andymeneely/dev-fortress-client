@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-
 import jwtDecode from 'jwt-decode';
 import { name } from './constants';
 
@@ -22,4 +21,14 @@ export const jwtExpiration = createSelector(
 
 export const getRoles = state => state[name].roles.map(
   r => r.name
+);
+
+export const userDataLoaded = state => !!state[name].username;
+
+export const fullInitialization = createSelector(
+  state => state[name].initializing,
+  isAuthenticated,
+  userDataLoaded,
+  (initializing, isAuth, udLoaded) =>
+    ((!initializing) && (isAuth ? udLoaded : true))
 );
