@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import GameCreation from './gameCreation';
+import GameCreationView from './gameCreationView';
 
 
 const MapStateToProps = () => ({});
@@ -10,6 +10,6 @@ const MapDispatchToProps = dispatch => ({
 
 const ConnectedGameCreationView = connect(
   MapStateToProps,
-  MapDispatchToProps)(GameCreation);
+  MapDispatchToProps)(GameCreationView);
 
 export default ConnectedGameCreationView;
