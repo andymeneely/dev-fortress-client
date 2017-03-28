@@ -1,17 +1,35 @@
 import {
-  ACTION_NAME
+  ATTEMPT_CREATE_GAME,
+  SUCCESS_CREATE_GAME,
+  FAIL_CREATE_GAME
 } from './actionTypes';
 
 const defaultState = {
-  exampleState: 0,
+  creatingGame: false,
+  loadedGameData: null,
+  gameCreationError: '',
 };
 
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case ACTION_NAME:
+    case ATTEMPT_CREATE_GAME:
       return Object.assign({}, state, {
-        exampleState: state.exampleState + 1,
+        creatingGame: true,
+      });
+    case SUCCESS_CREATE_GAME:
+      return Object.assign({}, state, {
+        creatingGame: false,
+        loadedGameData: {
+          name: action.gameData.name,
+          numRounds: action.gameData.max_rounds,
+          gameCreationError: false,
+        },
+      });
+    case FAIL_CREATE_GAME:
+      return Object.assign({}, state, {
+        creatingGame: false,
+        gameCreationError: action.error,
       });
     default:
       return state;

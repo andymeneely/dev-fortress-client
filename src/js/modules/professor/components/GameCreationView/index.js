@@ -1,11 +1,22 @@
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import GameCreationView from './gameCreationView';
+import {
+  creatingGameSelector,
+  gameCreationErrorSelector
+} from '../../selectors';
+import { attemptCreateGame } from '../../actions';
 
 
-const MapStateToProps = () => ({});
+const MapStateToProps = createStructuredSelector({
+  submitting: creatingGameSelector,
+  errorMessage: gameCreationErrorSelector,
+});
 const MapDispatchToProps = dispatch => ({
-  onLoginClick: () => dispatch(),
+  onFormSubmit: (name, numRounds) => dispatch(
+    attemptCreateGame(name, numRounds)
+  ),
 });
 
 const ConnectedGameCreationView = connect(

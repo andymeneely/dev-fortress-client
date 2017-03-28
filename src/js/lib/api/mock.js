@@ -19,7 +19,7 @@ const mockUsers = [
   },
   {
     id: 1,
-    username: 'meneely',
+    username: 'professor',
     name: 'Andy Meneely',
     email: 'andy@email.com',
     is_admin: false,
@@ -83,6 +83,21 @@ export function createUser(username, password, email, name, isAdmin, token, call
 export function refreshToken(token, callback) {
   setTimeout(
     () => callback(null, { token }),
-    LATENCY);
+    LATENCY
+  );
+}
+
+export function createGame(gameName, numRounds, token, callback) {
+  const mockNewGame = {
+    name: gameName,
+    max_round: numRounds,
+    current_round: 0,
+    storyteller_id: 1,
+  };
+
+  setTimeout(
+    () => callback(null, mockNewGame),
+    LATENCY
+  );
 }
 

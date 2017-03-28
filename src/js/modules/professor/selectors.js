@@ -1,3 +1,4 @@
 import { name } from './constants';
 
-export const exampleStateSelector = state => state[name].exampleState;
+export const creatingGameSelector = state => state[name].creatingGame;
+export const gameCreationErrorSelector = state => state[name].gameCreationError;
