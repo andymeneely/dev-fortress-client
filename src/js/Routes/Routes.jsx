@@ -7,7 +7,12 @@ import {
   IndexRoute
 } from 'react-router';
 
-import { redirectIfLoggedIn, isAuthenticated } from 'lib/routerHooks';
+import {
+  composeHooks,
+  redirectIfLoggedIn,
+  isAuthenticated,
+  isProfessor,
+} from 'lib/routerHooks';
 import Home from 'lib/components/connectedHome';
 import NavigationFrame from 'lib/components/navigationFrame';
 
@@ -37,7 +42,7 @@ const Routes = (props) => {
           />
           <Route
             path="professor"
-            onEnter={isAuthenticated}
+            onEnter={composeHooks(isAuthenticated, isProfessor)}
           >
             <IndexRoute component={professorModule.ProfessorView} />
             <Route
