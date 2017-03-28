@@ -9,6 +9,7 @@ const ProfessorViewStyle = {
 
 const ProfessorView = () => (
   <div style={ProfessorViewStyle}>
+    <h2>Professor Dashboard</h2>
     <Link to="/professor/createGame">
       Create Game
     </Link>

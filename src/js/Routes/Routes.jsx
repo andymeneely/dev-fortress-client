@@ -11,7 +11,7 @@ import {
   composeHooks,
   redirectIfLoggedIn,
   isAuthenticated,
-  isProfessor,
+  isProfessor
 } from 'lib/routerHooks';
 import Home from 'lib/components/connectedHome';
 import NavigationFrame from 'lib/components/navigationFrame';
@@ -48,7 +48,10 @@ const Routes = (props) => {
             <Route
               path="createGame"
               component={professorModule.GameCreation}
-              onEnter={isAuthenticated}
+            />
+            <Route
+              path="game/:gameId"
+              component={professorModule.GameDetailView}
             />
           </Route>
         </Route>

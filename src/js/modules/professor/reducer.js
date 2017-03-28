@@ -20,7 +20,8 @@ export default function (state = defaultState, action) {
     case SUCCESS_CREATE_GAME:
       return Object.assign({}, state, {
         creatingGame: false,
-        loadedGameData: {
+        loadedGamedata: {
+          id: action.gameData.id,
           name: action.gameData.name,
           numRounds: action.gameData.max_rounds,
           gameCreationError: false,

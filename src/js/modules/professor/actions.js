@@ -1,6 +1,7 @@
 import AuthModule from 'modules/authentication';
 import { createGame } from 'lib/api';
 import * as actions from './actionTypes';
+import { browserHistory } from 'react-router';
 
 function failCreateGame(error) {
   return {
@@ -10,6 +11,7 @@ function failCreateGame(error) {
 }
 
 function successCreateGame(gameData) {
+  browserHistory.push(`/professor/game/${gameData.id}`);
   return {
     type: actions.SUCCESS_CREATE_GAME,
     gameData,
@@ -32,7 +34,7 @@ export function attemptCreateGame(gameName, numRounds) {
       if (err) {
         dispatch(failCreateGame(err));
       } else {
-        dispatch(successCreateGame(data.name, data.max_rounds));
+        dispatch(successCreateGame(data));
       }
     });
   };
