@@ -79,7 +79,7 @@ class LoginForm extends React.Component {
           disabled={this.props.submitting}
         />
         <br />
-        <button onSubmit={this.handleFormSubmit}> Login </button>
+        <input type="submit" value="Login" />
       </form>
     );
   }

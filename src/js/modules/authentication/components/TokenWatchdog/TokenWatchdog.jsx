@@ -12,6 +12,7 @@ class TokenWatchdog extends React.Component {
 
   componentDidMount() {
     this.props.loadToken();
+    // this.props.initialized();
   }
 
   componentWillReceiveProps(nextProps) {

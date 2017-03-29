@@ -91,11 +91,11 @@ const NavigationBar = props => (
   <div className="navigation-bar" style={navigationBarStyle}>
     <ul style={navigationListStyle}>
       {props.links.map(createNavigationLink)}
-    </ul>
-    <ul style={Object.assign({}, navigationListStyle, { textAlign: 'right' })}>
       <li style={{ display: 'inline-block' }}>
         {createProfessorLink(props.userRoles)}
       </li>
+    </ul>
+    <ul style={Object.assign({}, navigationListStyle, { textAlign: 'right' })}>
       <li style={{ display: 'inline-block' }}>
         {createAdminLink(props.isAdmin)}
       </li>

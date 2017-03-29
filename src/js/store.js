@@ -6,10 +6,12 @@ import thunk from 'redux-thunk';
 
 import authentication from 'modules/authentication';
 import admin from 'modules/admin';
+import professor from 'modules/professor';
 
 const reducer = combineReducers({
   [authentication.constants.name]: authentication.reducer,
   [admin.constants.name]: admin.reducer,
+  [professor.constants.name]: professor.reducer,
   routing: routerReducer,
 });
 

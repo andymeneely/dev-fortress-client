@@ -84,3 +84,31 @@ export function refreshToken(token, callback) {
     return callback(null, body);
   });
 }
+
+export function createGame(gameName, numRounds, token, callback) {
+  return request({
+    method: 'POST',
+    url: `${BASE_URL}/game`,
+    json: {
+      name: gameName,
+      max_round: numRounds,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+    return callback(null, body);
+  });
+}
+
