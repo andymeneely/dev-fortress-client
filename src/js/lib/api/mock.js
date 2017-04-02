@@ -30,8 +30,10 @@ const mockUsers = [
 
 const mockTokens = {
   admin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjAsImlhdCI6MTQ4ODE0NjI4MiwiZXhwIjoxNTg4MTQ4MDgyfQ.k0flOL57viBTyt4TqnVpDOj371EVDbc8Do0l_mGcq7k',
-  meneely: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODE0NjI4MiwiZXhwIjoxNTg4MTQ4MDgyfQ.EC92y5uMX27yEj8jAMuYf3zEJcn4zBsK3dCWXI7tAmU',
+  professor: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODE0NjI4MiwiZXhwIjoxNTg4MTQ4MDgyfQ.EC92y5uMX27yEj8jAMuYf3zEJcn4zBsK3dCWXI7tAmU',
 };
+
+const mockGames = {};
 
 export function login(username, password, callback) {
   const uName = username.toLowerCase();
@@ -89,11 +91,15 @@ export function refreshToken(token, callback) {
 
 export function createGame(gameName, numRounds, token, callback) {
   const mockNewGame = {
+    id: Object.keys(mockGames).length + 1,
     name: gameName,
     max_round: numRounds,
     current_round: 0,
     storyteller_id: 1,
+    created_at: Date.now(),
   };
+
+  mockGames[mockGames.length + 1] = mockNewGame;
 
   setTimeout(
     () => callback(null, mockNewGame),
@@ -101,3 +107,11 @@ export function createGame(gameName, numRounds, token, callback) {
   );
 }
 
+export function getGamesForUser(userId, token, callback) {
+  setTimeout(
+    () => callback(null, Object.keys(mockGames).map(
+      id => mockGames[id])
+    ),
+    LATENCY
+  );
+}
