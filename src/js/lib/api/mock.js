@@ -96,7 +96,8 @@ export function createGame(gameName, numRounds, token, callback) {
     max_round: numRounds,
     current_round: 0,
     storyteller_id: 1,
-    created_at: Date.now(),
+    created_at: new Date().toISOString(), // 2017-03-28 15:46:27
+    teams: [],
   };
 
   mockGames[mockGames.length + 1] = mockNewGame;
@@ -115,3 +116,18 @@ export function getGamesForUser(userId, token, callback) {
     LATENCY
   );
 }
+
+export function getGameById(gameId, token, callback) {
+  const theGame = mockGames[gameId];
+
+  setTimeout(
+    () => {
+      if (theGame) {
+        return callback(null, theGame);
+      }
+      return callback('Game not found');
+    },
+    LATENCY
+  );
+}
+

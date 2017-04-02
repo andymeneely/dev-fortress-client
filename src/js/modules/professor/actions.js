@@ -1,7 +1,11 @@
-import AuthModule from 'modules/authentication';
-import { createGame, getGamesForUser } from 'lib/api';
-import * as actions from './actionTypes';
 import { browserHistory } from 'react-router';
+import AuthModule from 'modules/authentication';
+import {
+  createGame,
+  getGamesForUser,
+  getGameById
+} from 'lib/api';
+import * as actions from './actionTypes';
 
 function failCreateGame(error) {
   return {
@@ -73,3 +77,38 @@ export function attemptLoadMyGames() {
     });
   };
 }
+
+function failLoadGame(error) {
+  return {
+    type: actions.FAIL_LOAD_GAME,
+    error,
+  };
+}
+
+function successLoadGame(gameData) {
+  return {
+    type: actions.SUCCESS_LOAD_GAME,
+    gameData,
+  };
+}
+
+
+export function attemptLoadGame(gameId) {
+  return (dispatch, getState) => {
+    const state = getState();
+
+    const token = AuthModule.selectors.getJwt(state);
+
+    dispatch({
+      type: actions.ATTEMPT_LOAD_GAME,
+    });
+
+    getGameById(gameId, token, (err, data) => {
+      if (err) {
+        return dispatch(failLoadGame(err));
+      }
+      return dispatch(successLoadGame(data));
+    });
+  };
+}
+

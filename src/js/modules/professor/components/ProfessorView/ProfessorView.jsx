@@ -13,7 +13,7 @@ function createGameListEntry(gameData) {
     <div key={`mygame-${gameData.id}`}>
       <h4>{gameData.name}</h4>
       <span>Created: {`${createDate.getMonth()}/${createDate.getDate()}/${createDate.getFullYear()}` }</span>
-      <br/>
+      <br />
       <Link to={`/professor/game/${gameData.id}`}>More Info</Link>
     </div>
   );

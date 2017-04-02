@@ -2,7 +2,9 @@ import * as actions from './actionTypes';
 
 const defaultState = {
   creatingGame: false,
+  loadingGame: false,
   loadedGameData: null,
+  loadingGameError: null,
   gameCreationError: '',
   loadingMyGames: false,
   myGames: [],
@@ -19,11 +21,13 @@ export default function (state = defaultState, action) {
     case actions.SUCCESS_CREATE_GAME:
       return Object.assign({}, state, {
         creatingGame: false,
-        loadedGamedata: {
+        gameCreationError: false,
+        loadedGameData: {
           id: action.gameData.id,
           name: action.gameData.name,
           numRounds: action.gameData.max_round,
-          gameCreationError: false,
+          createDate: action.gameData.created_at,
+          teams: action.gameData.teams ? action.gameData.teams : [],
         },
       });
     case actions.FAIL_CREATE_GAME:
