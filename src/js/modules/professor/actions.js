@@ -120,9 +120,10 @@ function failLoadTeamTypes(error) {
   };
 }
 
-function successLoadTeamTypes() {
+function successLoadTeamTypes(teamTypes) {
   return {
     type: actions.SUCCESS_LOAD_TEAM_TYPES,
+    teamTypes,
   };
 }
 

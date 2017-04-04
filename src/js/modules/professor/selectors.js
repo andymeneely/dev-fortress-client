@@ -9,3 +9,4 @@ export const myGamesError = state => state[name].myGamesError;
 export const loadedGameData = state => state[name].loadedGameData;
 export const loadingGame = state => state[name].loadingGame;
 export const loadingGameError = state => state[name].loadingGameError;
+export const teamTypes = state => state[name].teamTypes;

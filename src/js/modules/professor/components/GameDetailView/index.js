@@ -4,7 +4,8 @@ import GameDetailView from './GameDetailView';
 import {
   loadedGameData,
   loadingGame,
-  loadingGameError
+  loadingGameError,
+  teamTypes
 } from '../../selectors';
 import { attemptLoadGame, attemptLoadTeamTypes } from '../../actions';
 
@@ -13,6 +14,7 @@ const ConnectedGameDetailView = connect(
     loadingGameData: loadingGame,
     gameDataError: loadingGameError,
     gameData: loadedGameData,
+    teamTypes,
   }),
   dispatch => ({
     loadGameData: gameId => dispatch(attemptLoadGame(gameId)),

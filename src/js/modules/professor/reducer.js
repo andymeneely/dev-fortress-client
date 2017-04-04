@@ -9,6 +9,8 @@ const defaultState = {
   loadingMyGames: false,
   myGames: [],
   myGamesError: null,
+  teamTypes: [],
+  loadingTeamTypes: false,
 };
 
 
@@ -48,6 +50,19 @@ export default function (state = defaultState, action) {
       return Object.assign({}, state, {
         loadingMyGames: false,
         myGamesError: action.error,
+      });
+    case actions.ATTEMPT_LOAD_TEAM_TYPES:
+      return Object.assign({}, state, {
+        loadingTeamTypes: true,
+      });
+    case actions.SUCCESS_LOAD_TEAM_TYPES:
+      return Object.assign({}, state, {
+        loadingTeamTypes: false,
+        teamTypes: action.teamTypes,
+      });
+    case actions.FAIL_LOAD_TEAM_TYPES:
+      return Object.assign({}, state, {
+        loadingTeamTypes: false,
       });
     default:
       return state;

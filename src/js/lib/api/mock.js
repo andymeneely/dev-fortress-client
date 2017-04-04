@@ -161,14 +161,9 @@ export function getGameById(gameId, token, callback) {
   );
 }
 
-export function getTeamTypes(error, token, callback) {
+export function getTeamTypes(token, callback) {
   setTimeout(
-    () => {
-      if (mockTeamTypes.length > 0) {
-        return callback(null, mockTeamTypes);
-      }
-      return callback(null, mockTeamTypes);
-    }
+    () => callback(null, mockTeamTypes)
   , LATENCY);
 }
 

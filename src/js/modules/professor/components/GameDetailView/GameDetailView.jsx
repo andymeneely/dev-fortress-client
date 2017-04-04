@@ -10,8 +10,10 @@ function makeTeamPanel(teamData) {
   );
 }
 
-function createTeamTypes() {
-  return null;
+function makeTeamTypes(typeData) {
+  return (
+    <option key={`team_type${typeData.id}`} value={typeData.id}>{typeData.name}</option>
+  );
 }
 
 class GameDetailView extends React.Component {
@@ -21,6 +23,7 @@ class GameDetailView extends React.Component {
     this.state = {
 
     };
+    
     this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
@@ -29,6 +32,8 @@ class GameDetailView extends React.Component {
     if (this.props.gameData && (this.props.gameData.id !== this.props.routeParams.gameId)) {
       this.props.loadGameData(this.props.routeParams.gameId);
     }
+    // load team types
+    this.props.loadTeamTypes();
   }
 
   handleFieldChange(event, field) {
@@ -76,8 +81,9 @@ class GameDetailView extends React.Component {
           <br />
           <label htmlFor="teamType">
             Team Type
+            {this.createTeamTypeSelect}
             <select onChange={this.dropDownSelected}>
-              {createTeamTypes()}
+              {this.props.teamTypes.map(makeTeamTypes)}
             </select>
           </label>
           <br />
