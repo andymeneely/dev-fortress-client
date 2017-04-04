@@ -41,6 +41,25 @@ export function getUser(userId, token, callback) {
   });
 }
 
+export function getTeamTypes(token, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/teamtype`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    json: true,
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+    return callback(null, body);
+  });
+}
+
 export function createUser(username, password, email, name, isAdmin, token, callback) {
   return request({
     method: 'POST',

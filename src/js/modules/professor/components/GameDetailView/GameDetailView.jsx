@@ -10,6 +10,10 @@ function makeTeamPanel(teamData) {
   );
 }
 
+function createTeamTypes() {
+  return null;
+}
+
 class GameDetailView extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +21,7 @@ class GameDetailView extends React.Component {
     this.state = {
 
     };
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
   componentWillMount() {
@@ -24,6 +29,18 @@ class GameDetailView extends React.Component {
     if (this.props.gameData && (this.props.gameData.id !== this.props.routeParams.gameId)) {
       this.props.loadGameData(this.props.routeParams.gameId);
     }
+  }
+
+  handleFieldChange(event, field) {
+    this.setState({
+      [field]: event.target.value,
+    });
+  }
+
+  handleTeamNameChange(event) {
+    this.setState({
+      teamNameValue: event.target.value,
+    });
   }
 
   render() {
@@ -44,6 +61,28 @@ class GameDetailView extends React.Component {
         <h3> {`${createDate.getMonth()}/${createDate.getDate()}/${createDate.getFullYear()}`}</h3>
         <h4>Number of Rounds: {this.props.gameData.numRounds}</h4>
         <h2>Teams</h2>
+        <h3>Add a team</h3>
+        <form onSubmit={this.handleTeamSubmit}>
+          <label htmlFor="teamName">
+            Team Name
+            <input
+              id="teamName"
+              type="text"
+              value={this.state.teamNameValue}
+              onChange={event => this.handleFieldChange(event, 'teamNameValue')}
+              disabled={this.props.submitting}
+            />
+          </label>
+          <br />
+          <label htmlFor="teamType">
+            Team Type
+            <select onChange={this.dropDownSelected}>
+              {createTeamTypes()}
+            </select>
+          </label>
+          <br />
+          <input type="submit" value="Create Team" />
+        </form>
         {
           (this.props.gameData.teams.length > 0) ?
           this.props.gameData.teams.map(makeTeamPanel) :
@@ -78,11 +117,25 @@ GameDetailView.propTypes = {
     ),
   }),
   loadGameData: React.PropTypes.func.isRequired,
+  submitting: React.PropTypes.bool,
+  loadTeamTypes: React.PropTypes.func.isRequired,
+  teamTypes: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      id: React.PropTypes.number,
+      name: React.PropTypes.string,
+      description: React.PropTypes.string,
+      intial_mature: React.PropTypes.bool,
+      initial_resource: React.PropTypes.number,
+      initial_mindset: React.PropTypes.number,
+      disabled: React.PropTypes.bool,
+    })
+  ),
 
 };
 
 GameDetailView.defaultProps = {
   gameDataError: '',
+  submitting: false,
   gameData: null,
 };
 

@@ -3,7 +3,8 @@ import AuthModule from 'modules/authentication';
 import {
   createGame,
   getGamesForUser,
-  getGameById
+  getGameById,
+  getTeamTypes
 } from 'lib/api';
 import * as actions from './actionTypes';
 
@@ -108,6 +109,38 @@ export function attemptLoadGame(gameId) {
         return dispatch(failLoadGame(err));
       }
       return dispatch(successLoadGame(data));
+    });
+  };
+}
+
+function failLoadTeamTypes(error) {
+  return {
+    type: actions.FAIL_LOAD_TEAM_TYPES,
+    error,
+  };
+}
+
+function successLoadTeamTypes() {
+  return {
+    type: actions.SUCCESS_LOAD_TEAM_TYPES,
+  };
+}
+
+export function attemptLoadTeamTypes() {
+  return (dispatch, getState) => {
+    const state = getState();
+
+    const token = AuthModule.selectors.getJwt(state);
+
+    dispatch({
+      type: actions.ATTEMPT_LOAD_TEAM_TYPES,
+    });
+
+    getTeamTypes(token, (err, data) => {
+      if (err) {
+        return dispatch(failLoadTeamTypes(err));
+      }
+      return dispatch(successLoadTeamTypes(data));
     });
   };
 }

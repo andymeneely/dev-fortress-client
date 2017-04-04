@@ -35,6 +35,36 @@ const mockTokens = {
 
 const mockGames = {};
 
+const mockTeamTypes = [
+  {
+    id: 1,
+    name: 'iOS',
+    description: 'We do swift',
+    intial_mature: true,
+    initial_resource: 5,
+    initial_mindset: 2,
+    disabled: false,
+  },
+  {
+    id: 2,
+    name: 'Angular_4',
+    description: 'The latest and greatest angular framework',
+    intial_mature: true,
+    initial_resource: 1,
+    initial_mindset: 1,
+    disabled: true,
+  },
+  {
+    id: 3,
+    name: 'Web',
+    description: 'The Web development team',
+    intial_mature: true,
+    initial_resource: 7,
+    initial_mindset: 2,
+    disabled: false,
+  },
+];
+
 export function login(username, password, callback) {
   const uName = username.toLowerCase();
   setTimeout(
@@ -129,5 +159,16 @@ export function getGameById(gameId, token, callback) {
     },
     LATENCY
   );
+}
+
+export function getTeamTypes(error, token, callback) {
+  setTimeout(
+    () => {
+      if (mockTeamTypes.length > 0) {
+        return callback(null, mockTeamTypes);
+      }
+      return callback(null, mockTeamTypes);
+    }
+  , LATENCY);
 }
 

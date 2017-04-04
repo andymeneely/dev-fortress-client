@@ -6,7 +6,7 @@ import {
   loadingGame,
   loadingGameError
 } from '../../selectors';
-import { attemptLoadGame } from '../../actions';
+import { attemptLoadGame, attemptLoadTeamTypes } from '../../actions';
 
 const ConnectedGameDetailView = connect(
   createStructuredSelector({
@@ -16,6 +16,7 @@ const ConnectedGameDetailView = connect(
   }),
   dispatch => ({
     loadGameData: gameId => dispatch(attemptLoadGame(gameId)),
+    loadTeamTypes: () => dispatch(attemptLoadTeamTypes()),
   })
 )(GameDetailView);
 
