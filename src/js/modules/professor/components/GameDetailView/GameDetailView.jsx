@@ -83,7 +83,12 @@ class GameDetailView extends React.Component {
             Team Type
             {this.createTeamTypeSelect}
             <select onChange={this.dropDownSelected}>
-              {this.props.teamTypes.map(makeTeamTypes)}
+              {
+                this.props.teamTypes
+                .filter(
+                  tt => !tt.disabled
+                ).map(makeTeamTypes)
+              }
             </select>
           </label>
           <br />
