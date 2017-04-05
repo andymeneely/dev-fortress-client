@@ -23,7 +23,7 @@ class GameDetailView extends React.Component {
     this.state = {
 
     };
-    
+
     this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 

@@ -1,7 +1,7 @@
 import { browserHistory } from 'react-router';
 import { login, getUser, refreshToken } from 'lib/api';
 import * as actions from './actionTypes';
-import { getJwt, decodeJwt } from './selectors';
+import { getJwt, userIdSelector } from './selectors';
 
 function successUserData(response) {
   return {
@@ -23,7 +23,7 @@ function requestUserData() {
       type: actions.REQUEST_USER_DATA,
     });
     const state = getState();
-    getUser(decodeJwt(state).userId, getJwt(state), (err, data) => {
+    getUser(userIdSelector(state), getJwt(state), (err, data) => {
       if (err) {
         return dispatch(failUserData(err));
       }
@@ -39,7 +39,7 @@ export function successLogin(token) {
     // do nothing
   }
   browserHistory.push('/');
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({
       type: actions.SUCCESS_LOGIN,
       token,

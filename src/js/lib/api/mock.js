@@ -29,8 +29,8 @@ const mockUsers = [
 ];
 
 const mockTokens = {
-  admin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjAsImlhdCI6MTQ4ODE0NjI4MiwiZXhwIjoxNTg4MTQ4MDgyfQ.k0flOL57viBTyt4TqnVpDOj371EVDbc8Do0l_mGcq7k',
-  professor: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODE0NjI4MiwiZXhwIjoxNTg4MTQ4MDgyfQ.EC92y5uMX27yEj8jAMuYf3zEJcn4zBsK3dCWXI7tAmU',
+  admin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiVVNFUiIsImlkIjowLCJpYXQiOjE0ODgxNDYyODIsImV4cCI6MTU4ODE0ODA4Mn0.r4SbqzTwRfYkw3XwS0GvwxHRsC_FxKRZxysK6Jr6kdc',
+  professor: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiVVNFUiIsImlkIjoxLCJpYXQiOjE0ODgxNDYyODIsImV4cCI6MTU4ODE0ODA4Mn0.OGAixKOR5MaBf_cY587GtEGA4NT9lBp7jG-2NLlnWbg',
 };
 
 const mockGames = {};
