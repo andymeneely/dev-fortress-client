@@ -13,3 +13,7 @@ export const FAIL_LOAD_GAME = 'professor/FAIL_LOAD_GAME';
 export const ATTEMPT_LOAD_TEAM_TYPES = 'professor/ATTEMPT_LOAD_TEAM_TYPES';
 export const SUCCESS_LOAD_TEAM_TYPES = 'professor/SUCCESS_LOAD_TEAM_TYPES';
 export const FAIL_LOAD_TEAM_TYPES = 'professor/FAIL_LOAD_TEAM_TYPES';
+
+export const ATTEMPT_ADD_TEAM = 'professor/ATTEMPT_ADD_TEAM';
+export const SUCCESS_ADD_TEAM = 'professor/SUCCESS_ADD_TEAM';
+export const FAIL_ADD_TEAM = 'professor/FAIL_ADD_TEAM';

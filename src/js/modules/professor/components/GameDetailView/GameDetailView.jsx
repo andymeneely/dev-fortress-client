@@ -56,6 +56,7 @@ class GameDetailView extends React.Component {
           addingTeam={this.props.addingTeam}
           teamTypes={this.props.teamTypes}
           onSubmit={this.props.addTeam}
+          submitError={this.props.teamAddError}
         />
         {
           (this.props.gameData.teams.length > 0) ?
@@ -79,12 +80,14 @@ GameDetailView.propTypes = {
   teamTypes: TeamTypeArray,
   addTeam: React.PropTypes.func.isRequired,
   addingTeam: React.PropTypes.bool,
+  teamAddError: React.PropTypes.string,
 };
 
 GameDetailView.defaultProps = {
-  gameDataError: '',
+  gameDataError: null,
   gameData: null,
   addingTeam: false,
+  teamAddError: null,
 };
 
 export default GameDetailView;

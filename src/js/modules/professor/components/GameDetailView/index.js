@@ -5,9 +5,16 @@ import {
   loadedGameData,
   loadingGame,
   loadingGameError,
-  teamTypes
+  teamTypes,
+  addingTeam,
+  teamAddError
 } from '../../selectors';
-import { attemptLoadGame, attemptLoadTeamTypes } from '../../actions';
+
+import {
+  attemptLoadGame,
+  attemptLoadTeamTypes,
+  attemptAddTeam
+} from '../../actions';
 
 const ConnectedGameDetailView = connect(
   createStructuredSelector({
@@ -15,11 +22,13 @@ const ConnectedGameDetailView = connect(
     gameDataError: loadingGameError,
     gameData: loadedGameData,
     teamTypes,
+    addingTeam,
+    teamAddError,
   }),
   dispatch => ({
     loadGameData: gameId => dispatch(attemptLoadGame(gameId)),
     loadTeamTypes: () => dispatch(attemptLoadTeamTypes()),
-    addTeam: () => {},
+    addTeam: (tName, tId) => dispatch(attemptAddTeam(tName, tId)),
   })
 )(GameDetailView);
 

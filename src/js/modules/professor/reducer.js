@@ -5,12 +5,14 @@ const defaultState = {
   loadingGame: false,
   loadedGameData: null,
   loadingGameError: null,
-  gameCreationError: '',
+  gameCreationError: null,
   loadingMyGames: false,
   myGames: [],
   myGamesError: null,
   teamTypes: [],
   loadingTeamTypes: false,
+  addingTeam: false,
+  teamAddError: null,
 };
 
 
@@ -19,11 +21,11 @@ export default function (state = defaultState, action) {
     case actions.ATTEMPT_CREATE_GAME:
       return Object.assign({}, state, {
         creatingGame: true,
+        gameCreationError: null,
       });
     case actions.SUCCESS_CREATE_GAME:
       return Object.assign({}, state, {
         creatingGame: false,
-        gameCreationError: false,
         loadedGameData: {
           id: action.gameData.id,
           name: action.gameData.name,
@@ -40,6 +42,7 @@ export default function (state = defaultState, action) {
     case actions.ATTEMPT_LOAD_MY_GAMES:
       return Object.assign({}, state, {
         loadingMyGames: true,
+        myGamesError: null,
       });
     case actions.SUCCESS_LOAD_MY_GAMES:
       return Object.assign({}, state, {
@@ -54,6 +57,7 @@ export default function (state = defaultState, action) {
     case actions.ATTEMPT_LOAD_GAME:
       return Object.assign({}, state, {
         loadingGame: true,
+        loadedGameError: null,
       });
     case actions.SUCCESS_LOAD_GAME:
       return Object.assign({}, state, {
@@ -83,6 +87,20 @@ export default function (state = defaultState, action) {
     case actions.FAIL_LOAD_TEAM_TYPES:
       return Object.assign({}, state, {
         loadingTeamTypes: false,
+      });
+    case actions.ATTEMPT_ADD_TEAM:
+      return Object.assign({}, state, {
+        addingTeam: true,
+        teamAddError: null,
+      });
+    case actions.SUCCESS_ADD_TEAM:
+      return Object.assign({}, state, {
+        addingTeam: false,
+      });
+    case actions.FAIL_ADD_TEAM:
+      return Object.assign({}, state, {
+        addingTeam: false,
+        teamAddError: action.error,
       });
     default:
       return state;

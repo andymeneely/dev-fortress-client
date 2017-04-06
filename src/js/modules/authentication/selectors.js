@@ -47,7 +47,7 @@ export const teamIdSelector = createSelector(
 
 export const userDataLoaded = state => !!state[name].username;
 
-export const teamDataLoaded = state => false;
+export const teamDataLoaded = state => false; // todo handle team authentication
 
 export const fullInitialization = createSelector(
   state => state[name].initializing,

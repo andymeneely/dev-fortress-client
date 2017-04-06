@@ -146,3 +146,30 @@ export function attemptLoadTeamTypes() {
   };
 }
 
+function failAddTeam(error) {
+  return {
+    type: actions.FAIL_ADD_TEAM,
+    error,
+  };
+}
+
+function successAddTeam() {
+  return {
+    type: actions.SUCCESS_ADD_TEAM,
+  };
+}
+
+export function attemptAddTeam(teamName, teamTypeId, gameId) {
+  return (dispatch, getState) => {
+    const state = getState();
+
+    const token = AuthModule.selectors.getJwt(state);
+
+    dispatch({
+      type: actions.ATTEMPT_ADD_TEAM,
+    });
+
+    // todo API call
+  };
+}
+
