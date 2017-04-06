@@ -7,7 +7,8 @@ import {
   loadingGameError,
   teamTypes,
   addingTeam,
-  teamAddError
+  teamAddError,
+  teamTypesIndex
 } from '../../selectors';
 
 import {
@@ -24,11 +25,12 @@ const ConnectedGameDetailView = connect(
     teamTypes,
     addingTeam,
     teamAddError,
+    teamTypesIndex,
   }),
   dispatch => ({
     loadGameData: gameId => dispatch(attemptLoadGame(gameId)),
     loadTeamTypes: () => dispatch(attemptLoadTeamTypes()),
-    addTeam: (tName, tId) => dispatch(attemptAddTeam(tName, tId)),
+    addTeam: (tName, tId, gId) => dispatch(attemptAddTeam(tName, tId, gId)),
   })
 )(GameDetailView);
 

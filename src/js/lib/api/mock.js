@@ -65,6 +65,8 @@ const mockTeamTypes = [
   },
 ];
 
+let teamIdInc = 0;
+
 export function login(username, password, callback) {
   const uName = username.toLowerCase();
   setTimeout(
@@ -165,5 +167,31 @@ export function getTeamTypes(token, callback) {
   setTimeout(
     () => callback(null, mockTeamTypes)
   , LATENCY);
+}
+
+export function createTeam(teamName, teamTypeId, gameId, token, callback) {
+  teamIdInc += 1;
+  const newTeam = {
+    id: teamIdInc,
+    name: teamName,
+    teamtype_id: teamTypeId,
+    game_id: gameId,
+    link_code: 'MyLinkCode',
+    // todo
+    // default mature
+    // default resources
+    // default mindset
+    // default link_code
+  };
+  setTimeout(
+    () => {
+      if (mockGames[gameId]) {
+        mockGames[gameId].teams.push(newTeam);
+        return callback(null, newTeam);
+      }
+      return callback('Game not found');
+    },
+    LATENCY
+  );
 }
 

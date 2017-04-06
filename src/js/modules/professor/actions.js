@@ -4,7 +4,8 @@ import {
   createGame,
   getGamesForUser,
   getGameById,
-  getTeamTypes
+  getTeamTypes,
+  createTeam
 } from 'lib/api';
 import * as actions from './actionTypes';
 
@@ -169,7 +170,12 @@ export function attemptAddTeam(teamName, teamTypeId, gameId) {
       type: actions.ATTEMPT_ADD_TEAM,
     });
 
-    // todo API call
+    createTeam(teamName, teamTypeId, gameId, token, (err, data) => {
+      if (err) {
+        return dispatch(failAddTeam(err));
+      }
+      return dispatch(successAddTeam(data));
+    });
   };
 }
 

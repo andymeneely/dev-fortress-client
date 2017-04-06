@@ -19,6 +19,15 @@ class AddTeamForm extends React.Component {
     this.canSubmit = this.canSubmit.bind(this);
   }
 
+  componentWillUpdate(nextProps) {
+    if (this.props.addingTeam && !(nextProps.addingTeam)) {
+      this.setState({
+        teamNameValue: '',
+        teamIdValue: '',
+      });
+    }
+  }
+
   handleFieldChange(event, field) {
     this.setState({
       [field]: event.target.value,
@@ -68,6 +77,7 @@ class AddTeamForm extends React.Component {
             <select
               onChange={event => this.handleFieldChange(event, 'teamIdValue')}
               value={this.state.teamIdValue}
+              disabled={this.props.addingTeam}
             >
               <option value="">Select Team Type</option>
               {
@@ -80,7 +90,7 @@ class AddTeamForm extends React.Component {
           </label>
           <br />
           <input
-            disabled={!this.canSubmit()}
+            disabled={!this.canSubmit() || this.props.addingTeam}
             type="submit"
             value="Create Team"
           />

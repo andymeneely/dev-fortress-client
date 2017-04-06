@@ -2,17 +2,13 @@ import React from 'react';
 import AddTeamForm from './subcomponents/AddTeamForm';
 import { TeamTypeArray, gameDataShape } from '../propTypes';
 
-function makeTeamPanel(teamData) {
-  return (
-    <div>
-      <h3>{teamData.name}</h3>
-      <h4>Type: {teamData.type_id}</h4>
-      <h4>Link Code: {teamData.link_code}</h4>
-    </div>
-  );
-}
-
 class GameDetailView extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.makeTeamPanel = this.makeTeamPanel.bind(this);
+  }
 
   componentWillMount() {
     // load game data...
@@ -23,18 +19,34 @@ class GameDetailView extends React.Component {
     this.props.loadTeamTypes();
   }
 
+  componentWillUpdate(nextProps) {
+    if (this.props.addingTeam && !(nextProps.addingTeam)) {
+      this.props.loadGameData(this.props.gameData.id);
+    }
+  }
+
   handleTeamNameChange(event) {
     this.setState({
       teamNameValue: event.target.value,
     });
   }
 
-  handleTeamFormSubmit(name, type) {
-
+  makeTeamPanel(teamData) {
+    return (
+      <div key={`team_${teamData.id}`}>
+        <h3>{teamData.name}</h3>
+        <h4>Type: {
+          this.props.teamTypesIndex[teamData.teamtype_id] ?
+          this.props.teamTypesIndex[teamData.teamtype_id].name :
+          'Loading...'
+        }</h4>
+        <h4>Link Code: {teamData.link_code}</h4>
+      </div>
+    );
   }
 
   render() {
-    if (this.props.loadingGameData) {
+    if (this.props.loadingGameData && !(this.props.gameData)) {
       return (<div>Loading...</div>);
     }
     if (this.props.gameDataError) {
@@ -55,12 +67,12 @@ class GameDetailView extends React.Component {
         <AddTeamForm
           addingTeam={this.props.addingTeam}
           teamTypes={this.props.teamTypes}
-          onSubmit={this.props.addTeam}
+          onSubmit={(tName, tId) => this.props.addTeam(tName, tId, this.props.gameData.id)}
           submitError={this.props.teamAddError}
         />
         {
           (this.props.gameData.teams.length > 0) ?
-          this.props.gameData.teams.map(makeTeamPanel) :
+          this.props.gameData.teams.map(this.makeTeamPanel) :
           (<h5>No Teams</h5>)
         }
       </div>
@@ -77,7 +89,8 @@ GameDetailView.propTypes = {
   gameData: gameDataShape,
   loadGameData: React.PropTypes.func.isRequired,
   loadTeamTypes: React.PropTypes.func.isRequired,
-  teamTypes: TeamTypeArray,
+  teamTypes: TeamTypeArray.isRequired,
+  teamTypesIndex: React.PropTypes.shape({}).isRequired,
   addTeam: React.PropTypes.func.isRequired,
   addingTeam: React.PropTypes.bool,
   teamAddError: React.PropTypes.string,
