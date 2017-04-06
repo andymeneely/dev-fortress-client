@@ -60,7 +60,7 @@ class GameDetailView extends React.Component {
       <div>
         <h1>Game Detail View</h1>
         <h2>{this.props.gameData.name}</h2>
-        <h3> {`${createDate.getMonth()}/${createDate.getDate()}/${createDate.getFullYear()}`}</h3>
+        <h3>Created: {`${createDate.getMonth()}/${createDate.getDate()}/${createDate.getFullYear()}`}</h3>
         <h4>Number of Rounds: {this.props.gameData.numRounds}</h4>
         <h2>Teams</h2>
         <h3>Add a team</h3>
