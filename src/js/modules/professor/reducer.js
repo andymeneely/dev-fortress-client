@@ -51,6 +51,26 @@ export default function (state = defaultState, action) {
         loadingMyGames: false,
         myGamesError: action.error,
       });
+    case actions.ATTEMPT_LOAD_GAME:
+      return Object.assign({}, state, {
+        loadingGame: true,
+      });
+    case actions.SUCCESS_LOAD_GAME:
+      return Object.assign({}, state, {
+        loadingGame: false,
+        loadedGameData: {
+          id: action.gameData.id,
+          name: action.gameData.name,
+          numRounds: action.gameData.max_round,
+          createDate: action.gameData.created_at,
+          teams: action.gameData.teams ? action.gameData.teams : [],
+        },
+      });
+    case action.FAIL_LOAD_GAME:
+      return Object.assign({}, state, {
+        loadingGame: false,
+        loadedGameError: action.error,
+      });
     case actions.ATTEMPT_LOAD_TEAM_TYPES:
       return Object.assign({}, state, {
         loadingTeamTypes: true,

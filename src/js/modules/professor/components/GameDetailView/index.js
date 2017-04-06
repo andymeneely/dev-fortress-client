@@ -19,6 +19,7 @@ const ConnectedGameDetailView = connect(
   dispatch => ({
     loadGameData: gameId => dispatch(attemptLoadGame(gameId)),
     loadTeamTypes: () => dispatch(attemptLoadTeamTypes()),
+    addTeam: () => {},
   })
 )(GameDetailView);
 

@@ -41,25 +41,6 @@ export function getUser(userId, token, callback) {
   });
 }
 
-export function getTeamTypes(token, callback) {
-  return request({
-    method: 'GET',
-    url: `${BASE_URL}/teamtype`,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    json: true,
-  }, (err, res, body) => {
-    if (err) {
-      return callback(err);
-    }
-    if (res.statusCode < 200 || res.statusCode >= 300) {
-      return callback(body);
-    }
-    return callback(null, body);
-  });
-}
-
 export function createUser(username, password, email, name, isAdmin, token, callback) {
   return request({
     method: 'POST',
@@ -127,6 +108,81 @@ export function createGame(gameName, numRounds, token, callback) {
     if (res.statusCode < 200 || res.statusCode >= 300) {
       return callback(body);
     }
+    return callback(null, body);
+  });
+}
+
+export function getGamesForUser(userId, token, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/game?storyteller_id=${userId}`,
+    json: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+
+    return callback(null, body);
+  });
+}
+
+export function getGameById(gameId, token, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/game/${gameId}?withRelated=teams`,
+    json: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+
+    return callback(null, body);
+  });
+}
+
+export function getTeamTypes(token, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/teamtype`,
+    json: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+
     return callback(null, body);
   });
 }

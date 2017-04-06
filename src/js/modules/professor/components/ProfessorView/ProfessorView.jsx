@@ -36,7 +36,11 @@ class ProfessorView extends React.Component {
         <h3>My Games</h3>
         {
           this.props.loadingGames ? (<span>Loading...</span>) :
-          (this.props.myGames.map(createGameListEntry))
+          (
+            (this.props.myGames.length > 0) ?
+            (this.props.myGames.map(createGameListEntry)) :
+            (<span>No Games</span>)
+          )
         }
       </div>
     );

@@ -130,7 +130,7 @@ export function createGame(gameName, numRounds, token, callback) {
     teams: [],
   };
 
-  mockGames[mockGames.length + 1] = mockNewGame;
+  mockGames[Object.keys(mockGames).length + 1] = mockNewGame;
 
   setTimeout(
     () => callback(null, mockNewGame),

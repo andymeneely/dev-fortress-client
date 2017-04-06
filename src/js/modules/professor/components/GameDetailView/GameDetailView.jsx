@@ -1,4 +1,6 @@
 import React from 'react';
+import AddTeamForm from './subcomponents/AddTeamForm';
+import { TeamTypeArray, gameDataShape } from '../propTypes';
 
 function makeTeamPanel(teamData) {
   return (
@@ -10,42 +12,25 @@ function makeTeamPanel(teamData) {
   );
 }
 
-function makeTeamTypes(typeData) {
-  return (
-    <option key={`team_type${typeData.id}`} value={typeData.id}>{typeData.name}</option>
-  );
-}
-
 class GameDetailView extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-
-    this.handleFieldChange = this.handleFieldChange.bind(this);
-  }
 
   componentWillMount() {
     // load game data...
-    if (this.props.gameData && (this.props.gameData.id !== this.props.routeParams.gameId)) {
+    if ((!this.props.gameData) || (this.props.gameData.id !== this.props.routeParams.gameId)) {
       this.props.loadGameData(this.props.routeParams.gameId);
     }
     // load team types
     this.props.loadTeamTypes();
   }
 
-  handleFieldChange(event, field) {
-    this.setState({
-      [field]: event.target.value,
-    });
-  }
-
   handleTeamNameChange(event) {
     this.setState({
       teamNameValue: event.target.value,
     });
+  }
+
+  handleTeamFormSubmit(name, type) {
+
   }
 
   render() {
@@ -67,33 +52,11 @@ class GameDetailView extends React.Component {
         <h4>Number of Rounds: {this.props.gameData.numRounds}</h4>
         <h2>Teams</h2>
         <h3>Add a team</h3>
-        <form onSubmit={this.handleTeamSubmit}>
-          <label htmlFor="teamName">
-            Team Name
-            <input
-              id="teamName"
-              type="text"
-              value={this.state.teamNameValue}
-              onChange={event => this.handleFieldChange(event, 'teamNameValue')}
-              disabled={this.props.submitting}
-            />
-          </label>
-          <br />
-          <label htmlFor="teamType">
-            Team Type
-            {this.createTeamTypeSelect}
-            <select onChange={this.dropDownSelected}>
-              {
-                this.props.teamTypes
-                .filter(
-                  tt => !tt.disabled
-                ).map(makeTeamTypes)
-              }
-            </select>
-          </label>
-          <br />
-          <input type="submit" value="Create Team" />
-        </form>
+        <AddTeamForm
+          addingTeam={this.props.addingTeam}
+          teamTypes={this.props.teamTypes}
+          onSubmit={this.props.addTeam}
+        />
         {
           (this.props.gameData.teams.length > 0) ?
           this.props.gameData.teams.map(makeTeamPanel) :
@@ -110,44 +73,18 @@ GameDetailView.propTypes = {
   }).isRequired,
   loadingGameData: React.PropTypes.bool.isRequired,
   gameDataError: React.PropTypes.string,
-  gameData: React.PropTypes.shape({
-    id: React.PropTypes.number,
-    name: React.PropTypes.string,
-    numRounds: React.PropTypes.number,
-    createDate: React.PropTypes.string,
-    teams: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        name: React.PropTypes.string,
-        mature: React.PropTypes.bool,
-        resources: React.PropTypes.number,
-        mindset: React.PropTypes.number,
-        type_id: React.PropTypes.number,
-        game_id: React.PropTypes.number,
-        link_code: React.PropTypes.string,
-      })
-    ),
-  }),
+  gameData: gameDataShape,
   loadGameData: React.PropTypes.func.isRequired,
-  submitting: React.PropTypes.bool,
   loadTeamTypes: React.PropTypes.func.isRequired,
-  teamTypes: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      id: React.PropTypes.number,
-      name: React.PropTypes.string,
-      description: React.PropTypes.string,
-      intial_mature: React.PropTypes.bool,
-      initial_resource: React.PropTypes.number,
-      initial_mindset: React.PropTypes.number,
-      disabled: React.PropTypes.bool,
-    })
-  ),
-
+  teamTypes: TeamTypeArray,
+  addTeam: React.PropTypes.func.isRequired,
+  addingTeam: React.PropTypes.bool,
 };
 
 GameDetailView.defaultProps = {
   gameDataError: '',
-  submitting: false,
   gameData: null,
+  addingTeam: false,
 };
 
 export default GameDetailView;
