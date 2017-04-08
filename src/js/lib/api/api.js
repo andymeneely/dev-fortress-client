@@ -112,3 +112,107 @@ export function createGame(gameName, numRounds, token, callback) {
   });
 }
 
+export function getGamesForUser(userId, token, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/game?storyteller_id=${userId}`,
+    json: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+
+    return callback(null, body);
+  });
+}
+
+export function getGameById(gameId, token, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/game/${gameId}?withRelated=teams`,
+    json: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+
+    return callback(null, body);
+  });
+}
+
+export function getTeamTypes(token, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/teamtype`,
+    json: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+
+    return callback(null, body);
+  });
+}
+
+export function createTeam(teamName, teamTypeId, gameId, token, callback) {
+  return request({
+    method: 'POST',
+    url: `${BASE_URL}/team`,
+    json: {
+      name: teamName,
+      teamtype_id: teamTypeId,
+      game_id: gameId,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      return callback(body);
+    }
+
+    return callback(null, body);
+  });
+}
+

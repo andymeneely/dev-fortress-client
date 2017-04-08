@@ -29,9 +29,43 @@ const mockUsers = [
 ];
 
 const mockTokens = {
-  admin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjAsImlhdCI6MTQ4ODE0NjI4MiwiZXhwIjoxNTg4MTQ4MDgyfQ.k0flOL57viBTyt4TqnVpDOj371EVDbc8Do0l_mGcq7k',
-  meneely: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODE0NjI4MiwiZXhwIjoxNTg4MTQ4MDgyfQ.EC92y5uMX27yEj8jAMuYf3zEJcn4zBsK3dCWXI7tAmU',
+  admin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiVVNFUiIsImlkIjowLCJpYXQiOjE0ODgxNDYyODIsImV4cCI6MTU4ODE0ODA4Mn0.r4SbqzTwRfYkw3XwS0GvwxHRsC_FxKRZxysK6Jr6kdc',
+  professor: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiVVNFUiIsImlkIjoxLCJpYXQiOjE0ODgxNDYyODIsImV4cCI6MTU4ODE0ODA4Mn0.OGAixKOR5MaBf_cY587GtEGA4NT9lBp7jG-2NLlnWbg',
 };
+
+const mockGames = {};
+
+const mockTeamTypes = [
+  {
+    id: 1,
+    name: 'iOS',
+    description: 'We do swift',
+    intial_mature: true,
+    initial_resource: 5,
+    initial_mindset: 2,
+    disabled: false,
+  },
+  {
+    id: 2,
+    name: 'Angular_4',
+    description: 'The latest and greatest angular framework',
+    intial_mature: true,
+    initial_resource: 1,
+    initial_mindset: 1,
+    disabled: true,
+  },
+  {
+    id: 3,
+    name: 'Web',
+    description: 'The Web development team',
+    intial_mature: true,
+    initial_resource: 7,
+    initial_mindset: 2,
+    disabled: false,
+  },
+];
+
+let teamIdInc = 0;
 
 export function login(username, password, callback) {
   const uName = username.toLowerCase();
@@ -89,14 +123,74 @@ export function refreshToken(token, callback) {
 
 export function createGame(gameName, numRounds, token, callback) {
   const mockNewGame = {
+    id: Object.keys(mockGames).length + 1,
     name: gameName,
     max_round: numRounds,
     current_round: 0,
     storyteller_id: 1,
+    created_at: new Date().toISOString(), // 2017-03-28 15:46:27
+    teams: [],
   };
+
+  mockGames[Object.keys(mockGames).length + 1] = mockNewGame;
 
   setTimeout(
     () => callback(null, mockNewGame),
+    LATENCY
+  );
+}
+
+export function getGamesForUser(userId, token, callback) {
+  setTimeout(
+    () => callback(null, Object.keys(mockGames).map(
+      id => mockGames[id])
+    ),
+    LATENCY
+  );
+}
+
+export function getGameById(gameId, token, callback) {
+  const theGame = mockGames[gameId];
+
+  setTimeout(
+    () => {
+      if (theGame) {
+        return callback(null, theGame);
+      }
+      return callback('Game not found');
+    },
+    LATENCY
+  );
+}
+
+export function getTeamTypes(token, callback) {
+  setTimeout(
+    () => callback(null, mockTeamTypes)
+  , LATENCY);
+}
+
+export function createTeam(teamName, teamTypeId, gameId, token, callback) {
+  teamIdInc += 1;
+  const newTeam = {
+    id: teamIdInc,
+    name: teamName,
+    teamtype_id: teamTypeId,
+    game_id: gameId,
+    link_code: 'MyLinkCode',
+    // todo
+    // default mature
+    // default resources
+    // default mindset
+    // default link_code
+  };
+  setTimeout(
+    () => {
+      if (mockGames[gameId]) {
+        mockGames[gameId].teams.push(newTeam);
+        return callback(null, newTeam);
+      }
+      return callback('Game not found');
+    },
     LATENCY
   );
 }
