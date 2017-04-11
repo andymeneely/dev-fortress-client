@@ -4,14 +4,18 @@ import {
   Router,
   Route,
   browserHistory,
-  IndexRoute
+  IndexRoute,
+  IndexRedirect
 } from 'react-router';
 
 import {
   composeHooks,
   redirectIfLoggedIn,
   isAuthenticated,
-  isProfessor
+  isProfessor,
+  isUser,
+  isTeam,
+  isAdmin
 } from 'lib/routerHooks';
 import Home from 'lib/components/connectedHome';
 import NavigationFrame from 'lib/components/navigationFrame';
@@ -19,6 +23,7 @@ import NavigationFrame from 'lib/components/navigationFrame';
 import authentication from 'modules/authentication';
 import adminModule from 'modules/admin';
 import professorModule from 'modules/professor';
+import teamGameplay from 'modules/teamGameplay';
 
 import Store from '../store';
 
@@ -28,6 +33,10 @@ const Routes = (props) => {
   if (props.isInitialized) {
     return (
       <Router history={history}>
+        <Route path="play" >
+          <IndexRedirect to="/" />
+          <Route path=":teamCode" component={teamGameplay.components.TeamJoiner} />
+        </Route>
         <Route path="/" component={NavigationFrame}>
           <IndexRoute component={Home} />
           <Route
@@ -38,11 +47,11 @@ const Routes = (props) => {
           <Route
             path="admin"
             component={adminModule.AdminView}
-            onEnter={isAuthenticated}
+            onEnter={composeHooks(isAuthenticated, isAdmin, composeHooks)}
           />
           <Route
             path="professor"
-            onEnter={composeHooks(isAuthenticated, isProfessor)}
+            onEnter={composeHooks(isAuthenticated, isUser, isProfessor)}
           >
             <IndexRoute component={professorModule.ProfessorView} />
             <Route
