@@ -32,6 +32,7 @@ class GameDetailView extends React.Component {
   }
 
   makeTeamPanel(teamData) {
+    const linkCode = `Link Code: ${window.location.protocol}//${window.location.host}/${teamData.link_code}`;
     return (
       <div key={`team_${teamData.id}`}>
         <h3>{teamData.name}</h3>
@@ -40,7 +41,7 @@ class GameDetailView extends React.Component {
           this.props.teamTypesIndex[teamData.teamtype_id].name :
           'Loading...'
         }</h4>
-        <h4>Link Code: {teamData.link_code}</h4>
+        <h4>{linkCode}</h4>
       </div>
     );
   }
