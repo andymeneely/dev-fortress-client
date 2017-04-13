@@ -1,24 +1,11 @@
-import {
-  REQUEST_LOGIN,
-  SUCCESS_LOGIN,
-  FAIL_LOGIN,
-  LOGOUT,
-  REQUEST_USER_DATA,
-  SUCCESS_USER_DATA,
-  FAIL_USER_DATA,
-  REQUEST_REFRESH_TOKEN,
-  SUCCESS_REFRESH_TOKEN,
-  FAIL_REFRESH_TOKEN,
-  LOAD_TOKEN,
-  SUCCESS_LOAD_TOKEN,
-  FAIL_LOAD_TOKEN,
-  INITIALIZED
-} from './actionTypes';
+
+import * as actions from './actionTypes';
 
 const defaultState = {
   requesting: false,
   token: null,
   error: null,
+  // user info
   username: null,
   name: null,
   roles: [],
@@ -30,30 +17,30 @@ const defaultState = {
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case REQUEST_LOGIN:
+    case actions.REQUEST_LOGIN:
       return Object.assign({}, state, {
         requesting: true,
       });
-    case SUCCESS_LOGIN:
+    case actions.SUCCESS_LOGIN:
       return Object.assign({}, state, {
         requesting: false,
         token: action.token,
       });
-    case FAIL_LOGIN:
+    case actions.FAIL_LOGIN:
       return Object.assign({}, state, {
         requesting: false,
         error: action.error,
         token: null,
       });
-    case LOGOUT:
+    case actions.LOGOUT:
       return Object.assign({}, state, {
         token: null,
       });
-    case REQUEST_USER_DATA:
+    case actions.REQUEST_USER_DATA:
       return Object.assign({}, state, {
         requesting: true,
       });
-    case SUCCESS_USER_DATA:
+    case actions.SUCCESS_USER_DATA:
       return Object.assign({}, state, {
         requesting: false,
         username: action.data.username,
@@ -61,41 +48,56 @@ export default function (state = defaultState, action) {
         roles: action.data.roles,
         isAdmin: !!action.data.is_admin,
       });
-    case FAIL_USER_DATA:
+    case actions.FAIL_USER_DATA:
       return Object.assign({}, state, {
         requesting: false,
         error: action.error,
       });
-    case REQUEST_REFRESH_TOKEN:
+    case actions.REQUEST_REFRESH_TOKEN:
       return Object.assign({}, state, {
         refreshingToken: true,
       });
-    case SUCCESS_REFRESH_TOKEN:
+    case actions.SUCCESS_REFRESH_TOKEN:
       return Object.assign({}, state, {
         refreshingToken: false,
         token: action.token,
       });
-    case FAIL_REFRESH_TOKEN:
+    case actions.FAIL_REFRESH_TOKEN:
       return Object.assign({}, state, {
         error: action.error,
       });
-    case LOAD_TOKEN:
+    case actions.LOAD_TOKEN:
       return Object.assign({}, state, {
         token: action.token,
       });
-    case INITIALIZED:
+    case actions.INITIALIZED:
       return Object.asssign({}, state, {
         initializing: false,
       });
-    case SUCCESS_LOAD_TOKEN:
+    case actions.SUCCESS_LOAD_TOKEN:
       return Object.assign({}, state, {
         token: action.token,
         initializing: false,
       });
-    case FAIL_LOAD_TOKEN:
+    case actions.FAIL_LOAD_TOKEN:
       return Object.assign({}, state, {
         token: null,
         initializing: false,
+      });
+    case actions.REQUEST_LOGIN_TEAM:
+      return Object.assign({}, state, {
+        requesting: true,
+      });
+    case actions.FAIL_LOGIN_TEAM:
+      return Object.assign({}, state, {
+        requesting: false,
+        error: action.error,
+      });
+    case actions.SUCCESS_LOGIN_TEAM:
+      return Object.assign({}, state, {
+        requesting: false,
+        token: action.token,
+        error: null,
       });
     default:
       return state;

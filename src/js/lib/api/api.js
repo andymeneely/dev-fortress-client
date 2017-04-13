@@ -216,3 +216,44 @@ export function createTeam(teamName, teamTypeId, gameId, token, callback) {
   });
 }
 
+export function authenticateTeam(teamCode, callback) {
+  return request({
+    method: 'POST',
+    url: `${BASE_URL}/team/login`,
+    json: {
+      link: teamCode,
+    },
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    return callback(null, body);
+  });
+}
+
+export function getTeamById(teamId, jwt, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/team/${teamId}`,
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+    json: true,
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    return callback(null, body);
+  });
+}
+

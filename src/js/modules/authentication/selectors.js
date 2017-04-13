@@ -25,12 +25,12 @@ export const getRoles = state => state[name].roles.map(
 
 export const isUser = createSelector(
   decodeJwt,
-  jwtData => (jwtData.type === tokenTypes.USER)
+  jwtData => (jwtData ? (jwtData.type === tokenTypes.USER) : false)
 );
 
 export const isTeam = createSelector(
   decodeJwt,
-  jwtData => (jwtData.type === tokenTypes.TEAM)
+  jwtData => (jwtData ? (jwtData.type === tokenTypes.TEAM) : false)
 );
 
 export const userIdSelector = createSelector(
@@ -47,13 +47,15 @@ export const teamIdSelector = createSelector(
 
 export const userDataLoaded = state => !!state[name].username;
 
-export const teamDataLoaded = state => false; // todo handle team authentication
+// export const teamDataLoaded = state => false; // todo handle team authentication
 
 export const fullInitialization = createSelector(
   state => state[name].initializing,
   isAuthenticated,
   userDataLoaded,
-  teamDataLoaded,
-  (initializing, isAuth, udLoaded, tdLoaded) =>
-    ((!initializing) && (isAuth ? (udLoaded || tdLoaded) : true))
+  isTeam,
+  (initializing, isAuth, udLoaded, isATeam) =>
+    ((!initializing) &&
+      (isAuth ?
+        (udLoaded || isATeam) : true))
 );

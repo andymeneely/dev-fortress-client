@@ -21,6 +21,26 @@ export function isAuthenticated(nextState, replace) {
   return 0;
 }
 
+export function isUser(nextState, replace) {
+  const state = Store.getState();
+  const jwtData = AuthenticationModule.selectors.decodeJwt(state);
+  if (jwtData.type === 'USER') {
+    return 0;
+  }
+
+  return replace('/');
+}
+
+export function isTeam(nextState, replace) {
+  const state = Store.getState();
+  const jwtData = AuthenticationModule.selectors.decodeJwt(state);
+  if (jwtData && jwtData.type === 'TEAM') {
+    return 0;
+  }
+
+  return replace('/');
+}
+
 export function redirectIfLoggedIn(nextState, replace) {
   const state = Store.getState();
   if (state.authentication.token) {
@@ -37,3 +57,12 @@ export function isProfessor(nextState, replace) {
   }
   return replace('/');
 }
+
+export function isAdmin(nextState, replace) {
+  const state = Store.getState();
+  if (state.authentication.isAdmin) {
+    return 0;
+  }
+  return replace('/');
+}
+

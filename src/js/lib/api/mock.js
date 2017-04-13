@@ -28,9 +28,17 @@ const mockUsers = [
   },
 ];
 
+const mockTeams = {
+
+}
+
 const mockTokens = {
   admin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiVVNFUiIsImlkIjowLCJpYXQiOjE0ODgxNDYyODIsImV4cCI6MTU4ODE0ODA4Mn0.r4SbqzTwRfYkw3XwS0GvwxHRsC_FxKRZxysK6Jr6kdc',
   professor: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiVVNFUiIsImlkIjoxLCJpYXQiOjE0ODgxNDYyODIsImV4cCI6MTU4ODE0ODA4Mn0.OGAixKOR5MaBf_cY587GtEGA4NT9lBp7jG-2NLlnWbg',
+};
+
+const mockTeamTokens = {
+  linkCode1: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiVEVBTSIsImlkIjoxLCJpYXQiOjE0ODgxNDYyODIsImV4cCI6MTU4ODE0ODA4Mn0.UXSHPFivfF91f8HW5-jHXi8g0pXUu_kAmh8_hOEigxc',
 };
 
 const mockGames = {};
@@ -151,7 +159,7 @@ export function getGamesForUser(userId, token, callback) {
 
 export function getGameById(gameId, token, callback) {
   const theGame = mockGames[gameId];
-
+  theGame.teams = theGame.teams.map(tid => mockTeams[tid]);
   setTimeout(
     () => {
       if (theGame) {
@@ -176,20 +184,32 @@ export function createTeam(teamName, teamTypeId, gameId, token, callback) {
     name: teamName,
     teamtype_id: teamTypeId,
     game_id: gameId,
-    link_code: 'MyLinkCode',
-    // todo
-    // default mature
-    // default resources
-    // default mindset
-    // default link_code
+    link_code: `linkCode${teamIdInc}`,
+    mature: false,
+    resources: 5,
+    mindset: 2,
   };
   setTimeout(
     () => {
       if (mockGames[gameId]) {
-        mockGames[gameId].teams.push(newTeam);
+        mockGames[gameId].teams.push(teamIdInc);
+        mockTeams[teamIdInc] = newTeam;
         return callback(null, newTeam);
       }
       return callback('Game not found');
+    },
+    LATENCY
+  );
+}
+
+export function authenticateTeam(teamCode, callback) {
+  const teamJwt = mockTeamTokens[teamCode];
+  setTimeout(
+    () => {
+      if (teamJwt) {
+        return callback(null, { token: teamJwt });
+      }
+      return callback('Team not found!');
     },
     LATENCY
   );
