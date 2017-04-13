@@ -3,7 +3,6 @@ import React from 'react';
 class TeamDashboard extends React.Component {
 
   componentDidMount() {
-    console.log("Load team dash")
     this.props.loadTeamInfo(this.props.teamId);
   }
 
@@ -22,8 +21,12 @@ class TeamDashboard extends React.Component {
 
 TeamDashboard.propTypes = {
   loadTeamInfo: React.PropTypes.func.isRequired,
-  teamId: React.PropTypes.number,
+  teamId: React.PropTypes.number.isRequired,
   teamName: React.PropTypes.string,
+};
+
+TeamDashboard.defaultProps = {
+  teamName: null,
 };
 
 export default TeamDashboard;
