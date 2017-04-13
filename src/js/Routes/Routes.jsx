@@ -34,8 +34,11 @@ const Routes = (props) => {
     return (
       <Router history={history}>
         <Route path="play" >
-          <IndexRedirect to="/" />
+          <IndexRedirect to="/game" />
           <Route path=":teamCode" component={teamGameplay.components.TeamJoiner} />
+        </Route>
+        <Route path="game" onEnter={composeHooks(isTeam)}>
+          <IndexRoute component={teamGameplay.components.TeamDashboard} />
         </Route>
         <Route path="/" component={NavigationFrame}>
           <IndexRoute component={Home} />

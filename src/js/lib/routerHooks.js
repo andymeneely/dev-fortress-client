@@ -34,7 +34,7 @@ export function isUser(nextState, replace) {
 export function isTeam(nextState, replace) {
   const state = Store.getState();
   const jwtData = AuthenticationModule.selectors.decodeJwt(state);
-  if (jwtData.type === 'TEAM') {
+  if (jwtData && jwtData.type === 'TEAM') {
     return 0;
   }
 

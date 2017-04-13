@@ -1,24 +1,19 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 class TeamJoiner extends React.Component {
 
   componentWillMount() {
-    if (this.props.teamDataLoaded) {
-      // todo redirect to game view
+    // if youre already logged in just go to your dashboard
+    if (this.props.teamId != null) {
+      browserHistory.replace('/game');
     }
-
-    if (!this.props.teamId) {
-      this.props.authenticateTeam(this.props.routeParams.teamCode);
-    }
+    this.props.authenticateTeam(this.props.routeParams.teamCode);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if ((this.props.teamId != null) && this.props.teamId !== prevProps.teamId) {
-      this.props.loadTeamInfo(this.props.teamId);
-    }
-
-    if (this.props.teamDataLoaded) {
-      // todo redirect to game view
+    if (this.props.teamId != null) {
+      browserHistory.replace('/game');
     }
   }
 
@@ -33,16 +28,16 @@ class TeamJoiner extends React.Component {
 
 TeamJoiner.propTypes = {
   authenticateTeam: React.PropTypes.func.isRequired,
-  loadTeamInfo: React.PropTypes.func.isRequired,
+  // loadTeamInfo: React.PropTypes.func.isRequired,
   teamId: React.PropTypes.number,
   routeParams: React.PropTypes.shape({
     teamCode: React.PropTypes.string,
   }).isRequired,
-  teamDataLoaded: React.PropTypes.bool.isRequired,
 };
 
 TeamJoiner.defaultProps = {
   teamId: null,
+  teamGameId: null,
 };
 
 export default TeamJoiner;

@@ -1,7 +1,6 @@
 
-// import { createSelector } from 'reselect';
-// import from reselect if you're using it
-
+import { createSelector } from 'reselect';
 import { name } from './constants';
 
-export const teamDataLoaded = state => !!state[name].teamName;
+export const teamName = state => state[name].teamName;
+export const teamDataLoaded = createSelector(teamName, tn => !!tn);
