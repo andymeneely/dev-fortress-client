@@ -4,4 +4,4 @@
 
 import { name } from './constants';
 
-export const exampleStateSelector = state => state[name].exampleState;
+export const teamDataLoaded = state => !!state[name].teamName;

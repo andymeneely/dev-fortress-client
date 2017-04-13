@@ -236,3 +236,24 @@ export function authenticateTeam(teamCode, callback) {
   });
 }
 
+export function getTeamById(teamId, jwt, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/team/${teamId}`,
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+    json: true,
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statusCode === 400) {
+      return callback(body.error);
+    }
+
+    return callback(null, body);
+  });
+}
+
