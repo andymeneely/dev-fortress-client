@@ -2,8 +2,8 @@ import React from 'react';
 
 class TeamJoiner extends React.Component {
 
-  componentDidMount() {
-    // todo trigger team login
+  componentWillMount() {
+    this.props.authenticateTeam(this.props.routeParams.teamCode);
   }
 
   render() {
@@ -14,5 +14,17 @@ class TeamJoiner extends React.Component {
     );
   }
 }
+
+TeamJoiner.propTypes = {
+  authenticateTeam: React.PropTypes.func.isRequired,
+  teamToken: React.PropTypes.string,
+  routeParams: React.PropTypes.shape({
+    teamCode: React.PropTypes.string,
+  }).isRequired,
+};
+
+TeamJoiner.defaultProps = {
+  teamToken: null,
+};
 
 export default TeamJoiner;

@@ -12,3 +12,6 @@ export const LOAD_TOKEN = 'authentication/LOAD_TOKEN';
 export const SUCCESS_LOAD_TOKEN = 'authentication/SUCCESS_LOAD_TOKEN';
 export const FAIL_LOAD_TOKEN = 'authentication/FAIL_LOAD_TOKEN';
 export const INITIALIZED = 'authentication/INITIALIZED';
+export const REQUEST_LOGIN_TEAM = 'authentication/REQUEST_LOGIN_TEAM';
+export const SUCCESS_LOGIN_TEAM = 'authentication/SUCCESS_LOGIN_TEAM';
+export const FAIL_LOGIN_TEAM = 'authentication/FAIL_LOGIN_TEAM';

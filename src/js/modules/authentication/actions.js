@@ -1,7 +1,8 @@
 import { browserHistory } from 'react-router';
-import { login, getUser, refreshToken } from 'lib/api';
+import * as api from 'lib/api';
 import * as actions from './actionTypes';
-import { getJwt, userIdSelector } from './selectors';
+import { getJwt, userIdSelector, isUser, isTeam } from './selectors';
+import jwtDecode from 'jwt-decode';
 
 function successUserData(response) {
   return {
@@ -23,7 +24,7 @@ function requestUserData() {
       type: actions.REQUEST_USER_DATA,
     });
     const state = getState();
-    getUser(userIdSelector(state), getJwt(state), (err, data) => {
+    api.getUser(userIdSelector(state), getJwt(state), (err, data) => {
       if (err) {
         return dispatch(failUserData(err));
       }
@@ -60,7 +61,7 @@ export function requestLogin(username, password) {
     dispatch({
       type: actions.REQUEST_LOGIN,
     });
-    login(username, password, (err, data) => {
+    api.login(username, password, (err, data) => {
       if (err) {
         return dispatch(failLogin(err));
       }
@@ -69,10 +70,20 @@ export function requestLogin(username, password) {
   };
 }
 
-function successRefreshToken(response) {
+function successRefreshToken(token) {
+  const tokenData = jwtDecode(token);
+  try {
+    if (tokenData.type === 'USER') {
+      localStorage.setItem('jwt', token);
+    } else {
+      sessionStorage.setItem('jwt', token);
+    }
+  } catch (err) {
+    // do nothing
+  }
   return {
     type: actions.SUCCESS_REFRESH_TOKEN,
-    token: response.token,
+    token,
   };
 }
 
@@ -90,11 +101,11 @@ export function requestRefreshToken() {
     });
 
     const state = getState();
-    refreshToken(getJwt(state), (erdmann, data) => {
+    api.refreshToken(getJwt(state), (erdmann, data) => {
       if (erdmann) {
         return dispatch(failRefreshToken(erdmann));
       }
-      return dispatch(successRefreshToken(data));
+      return dispatch(successRefreshToken(data.token));
     });
   };
 }
@@ -122,7 +133,8 @@ export function attemptLoadToken() {
     });
     let token = null;
     try {
-      token = localStorage.getItem('jwt');
+      token = localStorage.getItem('jwt') ||
+      sessionStorage.getItem('jwt');
     } catch (err) {
       // do nothing
       return;
@@ -136,14 +148,22 @@ export function attemptLoadToken() {
 }
 
 export function logout() {
-  try {
-    localStorage.removeItem('jwt');
-  } catch (err) {
-    // do nothing
-  }
-  window.location.reload();
-  return {
-    type: actions.LOGOUT,
+  return (dispatch, getState) => {
+    const state = getState();
+
+    try {
+      if (isUser(state)) { // log out a user
+        localStorage.removeItem('jwt');
+      } else if (isTeam(state)) {
+        sessionStorage.removeItem('jwt');
+      }
+    } catch (err) {
+      // do nothing
+    }
+    window.location.reload();
+    dispatch({
+      type: actions.LOGOUT,
+    });
   };
 }
 
@@ -152,3 +172,43 @@ export function initialized() {
     type: actions.INITIALIZED,
   };
 }
+
+export function successLoginTeam(token) {
+  return (dispatch, getState) => {
+    try {
+      sessionStorage.setItem('jwt', token);
+    } catch (err) {
+      // do nothing
+    }
+
+    dispatch({
+      type: actions.SUCCESS_LOGIN_TEAM,
+      token,
+    });
+  };
+}
+
+export function failLoginTeam(error) {
+  return {
+    type: actions.FAIL_LOGIN_TEAM,
+    error,
+  };
+}
+
+export function requestLoginTeam(teamCode) {
+  return (dispatch, getState) => {
+    // clear user token kjust to be safe
+    localStorage.removeItem('jwt');
+    dispatch({
+      type: actions.REQUEST_LOGIN_TEAM,
+    });
+
+    api.authenticateTeam(teamCode, (err, data) => {
+      if (err) {
+        return dispatch(failLoginTeam(err));
+      }
+      return dispatch(successLoginTeam(data.token));
+    });
+  };
+}
+
