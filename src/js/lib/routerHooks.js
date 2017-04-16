@@ -49,6 +49,14 @@ export function redirectIfLoggedIn(nextState, replace) {
   return 0;
 }
 
+export function redirectIfTeam(nextState, replace) {
+  const state = Store.getState();
+  if (AuthenticationModule.selectors.isTeam(state)) {
+    return replace('/game');
+  }
+  return 0;
+}
+
 export function isProfessor(nextState, replace) {
   const state = Store.getState();
   const roles = AuthenticationModule.selectors.getRoles(state);

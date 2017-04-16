@@ -15,7 +15,8 @@ import {
   isProfessor,
   isUser,
   isTeam,
-  isAdmin
+  isAdmin,
+  redirectIfTeam
 } from 'lib/routerHooks';
 import Home from 'lib/components/connectedHome';
 import NavigationFrame from 'lib/components/navigationFrame';
@@ -40,7 +41,11 @@ const Routes = (props) => {
         <Route path="game" onEnter={composeHooks(isTeam)}>
           <IndexRoute component={teamGameplay.components.TeamDashboard} />
         </Route>
-        <Route path="/" component={NavigationFrame}>
+        <Route
+          path="/"
+          onEnter={redirectIfTeam}
+          component={NavigationFrame}
+        >
           <IndexRoute component={Home} />
           <Route
             path="login"
