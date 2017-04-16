@@ -6,6 +6,11 @@ class TeamDashboard extends React.Component {
     this.props.loadTeamInfo(this.props.teamId);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // attempt to connect to socket
+    
+  }
+
   render() {
     if (!this.props.teamName) {
       return (<div>Loading Team Dashboard...</div>);
