@@ -11,6 +11,12 @@ const defaultState = {
   teamMindset: null,
   teamTypeId: null,
   teamGameId: null,
+  // game data
+  requestingGameInfo: false,
+  gameInfoError: null,
+  gameName: null,
+  currentRound: null,
+
 };
 
 
@@ -35,6 +41,21 @@ export default function (state = defaultState, action) {
     case actions.REQUEST_TEAM_INFO:
       return Object.assign({}, state, {
         requestingTeamInfo: true,
+      });
+    case actions.SUCCESS_GAME_INFO:
+      return Object.assign({}, state, {
+        requestingGameInfo: false,
+        gameInfoError: null,
+        gameName: action.gameInfo.name,
+      });
+    case actions.FAIL_GAME_INFO:
+      return Object.assign({}, state, {
+        requestingGameInfo: false,
+        gameInfoError: action.error,
+      });
+    case actions.REQUEST_GAME_INFO:
+      return Object.assign({}, state, {
+        requestingGameInfo: true,
       });
     default:
       return state;

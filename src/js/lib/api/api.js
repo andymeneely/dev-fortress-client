@@ -260,4 +260,3 @@ export function getTeamById(teamId, jwt, callback) {
   });
 }
 
-
