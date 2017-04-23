@@ -1,0 +1,40 @@
+// teamGameplay.scss
+// Styles for Team Gameplay Views
+
+@import "variables";
+
+.team-dashboard-container {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  height: 100vh;
+  
+
+  .team-dashboard-header {
+    background-color: $primaryColor;
+    color: $secondaryColor;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 0px 10px;
+    line-height: 60px;
+    font-weight: 300;
+    font-size: 1.8em;
+    border-bottom: 1px solid $secondaryColor;
+
+    .header-branding {
+      width: 50%;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    .header-game-name {
+      width: 50%;
+      display: inline-block;
+      text-align: right;
+      .game-name {
+        font-weight: 500;
+      }
+    }
+
+  }
+}

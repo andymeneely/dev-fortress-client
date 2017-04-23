@@ -1,4 +1,5 @@
 import React from 'react';
+import 'css/teamGameplay.scss';
 
 class TeamDashboard extends React.Component {
 
@@ -11,7 +12,16 @@ class TeamDashboard extends React.Component {
       return (<div>Loading Team Dashboard...</div>);
     }
     return (
-      <div>
+      <div className="team-dashboard-container" >
+        <div className="team-dashboard-header">
+          <div className="header-branding">
+            <span>DevFortress</span>
+          </div>
+          <div className="header-game-name">
+            <span className="game-label">Game: </span>
+            <span className="game-name">{`Gamename`}</span>
+          </div>
+        </div>
         <h1>Team Dashboard</h1>
         <h2>{this.props.teamName}</h2>
       </div>
