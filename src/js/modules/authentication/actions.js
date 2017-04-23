@@ -1,8 +1,8 @@
 import { browserHistory } from 'react-router';
 import * as api from 'lib/api';
+import jwtDecode from 'jwt-decode';
 import * as actions from './actionTypes';
 import { getJwt, userIdSelector, isUser, isTeam } from './selectors';
-import jwtDecode from 'jwt-decode';
 
 function successUserData(response) {
   return {
@@ -116,7 +116,10 @@ export function successLoadToken(token) {
       type: actions.SUCCESS_LOAD_TOKEN,
       token,
     });
-    return dispatch(requestUserData());
+
+    if (jwtDecode(token).type === 'USER') {
+      dispatch(requestUserData());
+    }
   };
 }
 
@@ -211,4 +214,3 @@ export function requestLoginTeam(teamCode) {
     });
   };
 }
-
