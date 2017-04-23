@@ -137,11 +137,14 @@ export function getGamesForUser(userId, token, callback) {
   });
 }
 
-export function getGameById(gameId, token, callback) {
+export function getGameById(gameId, token, withRelated = [], callback) {
   return request({
     method: 'GET',
-    url: `${BASE_URL}/game/${gameId}?withRelated=teams`,
+    url: `${BASE_URL}/game/${gameId}`,
     json: true,
+    qs: {
+      withRelated,
+    },
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -256,4 +259,5 @@ export function getTeamById(teamId, jwt, callback) {
     return callback(null, body);
   });
 }
+
 

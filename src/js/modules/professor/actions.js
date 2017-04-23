@@ -105,7 +105,7 @@ export function attemptLoadGame(gameId) {
       type: actions.ATTEMPT_LOAD_GAME,
     });
 
-    getGameById(gameId, token, (err, data) => {
+    getGameById(gameId, token, ['teams'], (err, data) => {
       if (err) {
         return dispatch(failLoadGame(err));
       }
