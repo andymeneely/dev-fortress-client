@@ -3,17 +3,20 @@
 
 @import "variables";
 
+$teamStatWidth: 300px;
+
 .team-dashboard-container {
   box-sizing: border-box;
   display: inline-block;
   width: 100%;
+  min-width: 800px;
   height: 100vh;
   
 
   .team-dashboard-header {
     background-color: $primaryColor;
     color: $secondaryColor;
-    height: 60px;
+    height: 55px;
     box-sizing: border-box;
     padding: 0px 10px;
     line-height: 60px;
@@ -37,4 +40,90 @@
     }
 
   }
+}
+
+.team-status-bar {
+  vertical-align: top;
+  box-sizing: border-box;
+  height: 100px;
+  background-color: $primaryColor;
+  color: $secondaryColor;
+  border-bottom: 1px solid $secondaryColor;
+
+  .status-title-container {
+    width: calc(100% - #{$teamStatWidth});
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    .team-name-container {
+      vertical-align: top;
+      display: inline-block;
+      padding-top: 10px;
+      padding-left: 15px;
+      height: 100%;
+      width: 50%;
+      box-sizing: border-box;
+      h1, h2 {
+        margin: 0;
+      }
+      h1 {
+        font-size: 1.9em;
+        font-weight: 600;
+      }
+      h2 {
+        font-size: 1.3em;
+        font-weight: 300;
+        color: lighten($secondaryColor, 20%);
+      }
+    }
+
+    .round-count-container {
+      padding-top: 10px;
+      padding-right: 15px;
+      text-align: right;
+      display: inline-block;
+      height: 100%;
+      width: 50%;
+      box-sizing: border-box;
+      h1, h2 {
+        font-weight: 500;
+        margin: 0;
+      }
+    }
+  }
+
+  .team-stats-container {
+    height: 100%;
+    display: inline-block;
+    width: $teamStatWidth;
+    box-sizing: border-box;
+    border-left: solid 1px $secondaryColor;
+    .stat-container {
+      width: 50%;
+      display: inline-block;
+      height: 100%;
+      vertical-align: top;
+      text-align: center;
+      position: relative;
+      .title {
+        font-weight: 500;
+        font-size: 1.1em;
+        padding: 7px 10px;
+        margin: 0;
+        text-align: center;
+        vertical-align: top;
+      }
+      .count-container {
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        margin: 0 auto;
+        padding-bottom: 10px;
+        font-size: 2.2em;
+        width: 100%;
+        font-weight: 600;
+      }
+    }
+  }
+
 }

@@ -5,9 +5,17 @@ import TeamDashboard from './TeamDashboard';
 import {
   teamName,
   gameName,
-  teamGameId
+  teamGameId,
+  teamTypeName,
+  teamDevCaps,
+  teamMindset,
+  currentRound
 } from '../../selectors';
-import { requestTeamInfo, requestGameInfo } from '../../actions';
+import {
+  requestTeamInfo,
+  requestGameInfo,
+  requestTeamTypes
+} from '../../actions';
 
 const ConnectedTeamDashboard = connect(
   createStructuredSelector({
@@ -15,10 +23,15 @@ const ConnectedTeamDashboard = connect(
     teamName,
     gameName,
     gameId: teamGameId,
+    teamTypeName,
+    teamDevCaps,
+    teamMindset,
+    currentRound,
   }),
   dispatch => ({
     loadTeamInfo: tId => dispatch(requestTeamInfo(tId)),
     loadGameInfo: gId => dispatch(requestGameInfo(gId)),
+    loadTeamTypes: () => dispatch(requestTeamTypes()),
   })
 )(TeamDashboard);
 

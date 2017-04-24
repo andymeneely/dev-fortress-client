@@ -2,11 +2,13 @@ import React from 'react';
 import 'css/teamGameplay.scss';
 
 import DashboardHeader from './subcomponents/DashboardHeader';
+import StatusBar from './subcomponents/StatusBar';
 
 class TeamDashboard extends React.Component {
 
   componentDidMount() {
     this.props.loadTeamInfo(this.props.teamId);
+    this.props.loadTeamTypes();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,8 +26,13 @@ class TeamDashboard extends React.Component {
         <DashboardHeader
           gameName={this.props.gameName || 'Loading...'}
         />
-        <h1>Team Dashboard</h1>
-        <h2>{this.props.teamName}</h2>
+        <StatusBar
+          teamName={this.props.teamName}
+          teamTypeName={this.props.teamTypeName}
+          teamDevCaps={this.props.teamDevCaps}
+          teamMindset={this.props.teamMindset}
+          currentRound={this.props.currentRound}
+        />
       </div>
     );
   }
@@ -34,16 +41,25 @@ class TeamDashboard extends React.Component {
 TeamDashboard.propTypes = {
   loadTeamInfo: React.PropTypes.func.isRequired,
   loadGameInfo: React.PropTypes.func.isRequired,
+  loadTeamTypes: React.PropTypes.func.isRequired,
   teamId: React.PropTypes.number.isRequired,
   teamName: React.PropTypes.string,
+  teamTypeName: React.PropTypes.string,
   gameId: React.PropTypes.number,
   gameName: React.PropTypes.string,
+  currentRound: React.PropTypes.number,
+  teamDevCaps: React.PropTypes.number,
+  teamMindset: React.PropTypes.number,
 };
 
 TeamDashboard.defaultProps = {
   teamName: null,
+  teamTypeName: null,
   gameId: null,
   gameName: null,
+  teamDevCaps: null,
+  teamMindset: null,
+  currentRound: null,
 };
 
 export default TeamDashboard;

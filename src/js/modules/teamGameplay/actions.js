@@ -63,3 +63,34 @@ export function requestGameInfo(gameId) {
     });
   };
 }
+
+function successTeamTypes(teamTypes) {
+  return {
+    type: actions.SUCCESS_TEAM_TYPES,
+    teamTypes,
+  };
+}
+
+function failTeamTypes(error) {
+  return {
+    type: actions.FAIL_TEAM_TYPES,
+    error,
+  };
+}
+
+export function requestTeamTypes() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const jwt = AuthModule.selectors.getJwt(state);
+    dispatch({
+      type: actions.REQUEST_TEAM_TYPES,
+    });
+    api.getTeamTypes(jwt, (err, data) => {
+      if (err) {
+        return dispatch(failTeamTypes(err));
+      }
+      return dispatch(successTeamTypes(data));
+    });
+  };
+}
+

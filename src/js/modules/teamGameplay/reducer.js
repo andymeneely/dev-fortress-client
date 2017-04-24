@@ -4,6 +4,10 @@ import * as actions from './actionTypes';
 const defaultState = {
   requestingTeamInfo: false,
   error: null,
+  // static data
+  requestingTeamTypes: false,
+  teamTypeIndex: null,
+  teamTypeError: null,
   // team data
   teamName: null,
   teamMature: null,
@@ -16,7 +20,6 @@ const defaultState = {
   gameInfoError: null,
   gameName: null,
   currentRound: null,
-
 };
 
 
@@ -47,6 +50,7 @@ export default function (state = defaultState, action) {
         requestingGameInfo: false,
         gameInfoError: null,
         gameName: action.gameInfo.name,
+        currentRound: action.gameInfo.current_round,
       });
     case actions.FAIL_GAME_INFO:
       return Object.assign({}, state, {
@@ -56,6 +60,25 @@ export default function (state = defaultState, action) {
     case actions.REQUEST_GAME_INFO:
       return Object.assign({}, state, {
         requestingGameInfo: true,
+      });
+    case actions.SUCCESS_TEAM_TYPES:
+      return Object.assign({}, state, {
+        requestingTeamTypes: false,
+        teamTypeError: null,
+        teamTypeIndex: action.teamTypes.reduce(
+          (acc, curr) =>
+            Object.assign({}, acc, {
+              [curr.id]: curr,
+            }), {}),
+      });
+    case actions.FAIL_TEAM_TYPES:
+      return Object.assign({}, state, {
+        requestingTeamTypes: false,
+        teamTypeError: action.error,
+      });
+    case actions.REQUEST_TEAM_TYPES:
+      return Object.assign({}, state, {
+        requestingTeamTypes: true,
       });
     default:
       return state;
