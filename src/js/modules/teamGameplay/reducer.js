@@ -2,13 +2,16 @@
 import * as actions from './actionTypes';
 
 const defaultState = {
-  requestingTeamInfo: false,
   error: null,
   // static data
   requestingTeamTypes: false,
   teamTypeIndex: null,
   teamTypeError: null,
+  requestingActions: false,
+  actionsIndex: null,
+  actionsError: null,
   // team data
+  requestingTeamInfo: false,
   teamName: null,
   teamMature: null,
   teamResources: null,
@@ -79,6 +82,27 @@ export default function (state = defaultState, action) {
     case actions.REQUEST_TEAM_TYPES:
       return Object.assign({}, state, {
         requestingTeamTypes: true,
+      });
+    case actions.REQUEST_ACTIONS:
+      return Object.assign({}, state, {
+        requestingActions: true,
+        actionsError: null,
+      });
+    case actions.SUCCESS_ACTIONS:
+      return Object.assign({}, state, {
+        requestingActions: false,
+        actionsError: null,
+        actionsIndex: action.actions.reduce(
+          (acc, curr) =>
+            Object.assign({}, acc, {
+              [curr.id]: curr,
+            }),
+        {}),
+      });
+    case actions.FAIL_ACTIONS:
+      return Object.assign({}, state, {
+        requestingActions: false,
+        actionsError: action.error,
       });
     default:
       return state;

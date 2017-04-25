@@ -14,7 +14,8 @@ import {
 import {
   requestTeamInfo,
   requestGameInfo,
-  requestTeamTypes
+  requestTeamTypes,
+  requestActions
 } from '../../actions';
 
 const ConnectedTeamDashboard = connect(
@@ -32,6 +33,7 @@ const ConnectedTeamDashboard = connect(
     loadTeamInfo: tId => dispatch(requestTeamInfo(tId)),
     loadGameInfo: gId => dispatch(requestGameInfo(gId)),
     loadTeamTypes: () => dispatch(requestTeamTypes()),
+    loadActions: () => dispatch(requestActions()),
   })
 )(TeamDashboard);
 

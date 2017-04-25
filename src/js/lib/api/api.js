@@ -260,3 +260,24 @@ export function getTeamById(teamId, jwt, callback) {
   });
 }
 
+export function getActions(jwt, callback) {
+  return request({
+    method: 'GET',
+    url: `${BASE_URL}/action`,
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+    json: true,
+  }, (err, res, body) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (res.statuscCode === 400) {
+      return callback(body.error);
+    }
+
+    return callback(null, body);
+  });
+}
+

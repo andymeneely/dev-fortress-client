@@ -21,3 +21,10 @@ export const teamDevCaps = state => state[name].teamResources;
 export const teamMindset = state => state[name].teamMindset;
 export const gameName = state => state[name].gameName;
 export const currentRound = state => state[name].currentRound;
+
+export const actionsIndex = state => state[name].actionsIndex;
+export const actionsLoaded = createSelector(
+  actionsIndex,
+  acs => !!acs
+);
+

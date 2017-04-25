@@ -4,12 +4,14 @@ import 'css/teamGameplay.scss';
 import DashboardHeader from './subcomponents/DashboardHeader';
 import StatusBar from './subcomponents/StatusBar';
 import TeamSidebar from '../TeamSidebar';
+import ActionGrid from '../ActionGrid';
 
 class TeamDashboard extends React.Component {
 
   componentDidMount() {
     this.props.loadTeamInfo(this.props.teamId);
     this.props.loadTeamTypes();
+    this.props.loadActions();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,6 +39,7 @@ class TeamDashboard extends React.Component {
         />
         <div className="dashboard-workspace-area">
           <div className="workspace-container">
+            <ActionGrid />
           </div>
           <div className="sidebar-container">
             <div className="sidebar-container-container">
@@ -53,6 +56,7 @@ class TeamDashboard extends React.Component {
 TeamDashboard.propTypes = {
   loadTeamInfo: React.PropTypes.func.isRequired,
   loadGameInfo: React.PropTypes.func.isRequired,
+  loadActions: React.PropTypes.func.isRequired,
   loadTeamTypes: React.PropTypes.func.isRequired,
   teamId: React.PropTypes.number.isRequired,
   teamName: React.PropTypes.string,

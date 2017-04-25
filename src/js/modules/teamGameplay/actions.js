@@ -94,3 +94,33 @@ export function requestTeamTypes() {
   };
 }
 
+export function successActions(actionsList) {
+  return {
+    type: actions.SUCCESS_ACTIONS,
+    actions: actionsList,
+  };
+}
+
+export function failActions(error) {
+  return {
+    type: actions.FAIL_ACTIONS,
+    error,
+  };
+}
+
+export function requestActions() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const jwt = AuthModule.selectors.getJwt(state);
+    dispatch({
+      type: actions.REQUEST_ACTIONS,
+    });
+    api.getActions(jwt, (err, data) => {
+      if (err) {
+        return dispatch(failActions(err));
+      }
+      return dispatch(successActions(data));
+    });
+  };
+}
+

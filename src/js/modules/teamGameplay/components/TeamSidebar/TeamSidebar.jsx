@@ -4,7 +4,6 @@ const TeamSidebar = (props) => {
   const routineDev = (props.startingDevCaps - props.spentDevCaps);
   const newDevCaps = Math.floor(routineDev / 2);
   const startingDevCaps = routineDev + newDevCaps;
-  console.log(props);
   return (
     <div className="team-sidebar">
       <div className="calculation-container">
