@@ -69,8 +69,11 @@ const TeamSidebar = (props) => {
             <span>Starting DevCaps</span>
           </div>
           <div className="value-value">
-            <span>{startingDevCaps}</span>
+            <span>{startingDevCaps}*</span>
           </div>
+        </div>
+        <div className="note">
+          <span>*Assuming no damage next phase.</span>
         </div>
       </div>
     </div>
