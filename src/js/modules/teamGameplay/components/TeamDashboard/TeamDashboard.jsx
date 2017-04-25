@@ -22,6 +22,7 @@ class TeamDashboard extends React.Component {
     if (!this.props.teamName) {
       return (<div>Loading Team Dashboard...</div>);
     }
+
     return (
       <div className="team-dashboard-container" >
         <DashboardHeader
