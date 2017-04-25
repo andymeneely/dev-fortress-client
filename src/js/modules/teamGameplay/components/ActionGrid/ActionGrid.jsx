@@ -1,10 +1,15 @@
 import React from 'react';
+import ActionPanel from '../ActionPanel';
 
 class ActionGrid extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      selected: {
 
+      },
+    };
     this.makeActionPanel = this.makeActionPanel.bind(this);
   }
 
@@ -12,9 +17,21 @@ class ActionGrid extends React.Component {
     const actionData = this.props.actionsIndex[actionId];
 
     return (
-      <div key={`action_${actionId}`}>
-        {actionData.name}
-      </div>
+      <ActionPanel
+        key={`action_${actionId}`}
+        name={actionData.name}
+        description={actionData.description}
+        cost={actionData.devcaps_cost}
+        reward={actionData.mindset_reward}
+        selected={!!this.state.selected[actionId]}
+        onClick={() => this.setState(
+          {
+            selected: Object.assign({}, this.state.selected, {
+              [actionId]: !(this.state.selected[actionId]),
+            }),
+          })
+        }
+      />
     );
   }
 
