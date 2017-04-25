@@ -3,6 +3,7 @@ import 'css/teamGameplay.scss';
 
 import DashboardHeader from './subcomponents/DashboardHeader';
 import StatusBar from './subcomponents/StatusBar';
+import TeamSidebar from '../TeamSidebar';
 
 class TeamDashboard extends React.Component {
 
@@ -33,6 +34,16 @@ class TeamDashboard extends React.Component {
           teamMindset={this.props.teamMindset}
           currentRound={this.props.currentRound}
         />
+        <div className="dashboard-workspace-area">
+          <div className="workspace-container">
+          </div>
+          <div className="sidebar-container">
+            <div className="sidebar-container-container">
+              <TeamSidebar />
+
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

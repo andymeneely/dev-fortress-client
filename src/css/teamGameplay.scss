@@ -125,5 +125,98 @@ $teamStatWidth: 300px;
       }
     }
   }
+}
 
+.dashboard-workspace-area {
+  height: calc(100vh - 155px);
+  .workspace-container {
+    width: calc(100% - #{$teamStatWidth});
+    height: 100%;
+    display: inline-block;
+    overflow-y: scroll;
+    vertical-align: top;
+  }
+  .sidebar-container {
+    width: $teamStatWidth;
+    background-color: $primaryColor;
+    height: 100%;
+    display: inline-block;
+    overflow-y: scroll;
+    border-left: solid 1px $secondaryColor;
+    box-sizing: border-box;
+    position: relative;
+    // &::after {
+    //   content: "";
+    //   width: 100%;
+    //   height: 30px;
+    //   -webkit-box-shadow: inset 0px -35px 15px -32px rgba(0,0,0,0.75);
+    //   -moz-box-shadow: inset 0px -35px 15px -32px rgba(0,0,0,0.75);
+    //   box-shadow: inset 0px -35px 15px -32px rgba(0,0,0,0.75);
+    //   position: fixed;
+    //   bottom: 0;
+    // }
+  }
+}
+
+.team-sidebar {
+  text-align: center;
+  width: 100%;
+  color: $secondaryColor;
+  padding-bottom: 60px;
+  .note {
+    padding: 12px 20px;
+    font-size: 1.2em;
+  }
+  .calculation-container {
+    width: 100%;
+    // height: 500px;
+    border-bottom: 1px solid $secondaryColor;
+    padding: 15px 0;
+    h2 {
+      vertical-align: top;
+      margin: 0;
+      font-weight: 500;
+      font-size: 1.8em;
+      margin-bottom: 12px;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .value-container {
+      padding: 5px 20px;
+      .value-label {
+        display: inline-block;
+        text-align: right;
+        width: 50%;
+        font-size: 1.4em;
+        vertical-align: middle;
+        font-weight: 300;
+      }
+      .value-value {
+        display: inline-block;
+        text-align: right;
+        width: 50%;
+        font-size: 2.5em;
+        vertical-align: middle;
+        color: $black;
+        padding-right: 40px;
+        box-sizing: border-box;
+        &.loss {
+          color: $dangerColor;
+        }
+        &.gain {
+          color: $successColor;
+        }
+      }
+    }
+
+    .result-line {
+      height: 1px;
+      // margin: 0 auto;
+      background-color: lighten($secondaryColor, 10%);
+      margin: 10px 20px;
+    }
+  } 
 }
