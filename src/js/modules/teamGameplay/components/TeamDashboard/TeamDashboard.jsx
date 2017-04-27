@@ -39,11 +39,21 @@ class TeamDashboard extends React.Component {
         />
         <div className="dashboard-workspace-area">
           <div className="workspace-container">
-            <ActionGrid />
+            <ActionGrid
+              actionsIndex={this.props.actionsIndex}
+              selectedActions={this.props.selectedActions}
+              pastActions={this.props.pastActions}
+            />
           </div>
           <div className="sidebar-container">
             <div className="sidebar-container-container">
-              <TeamSidebar />
+              <TeamSidebar
+                spentDevCaps={
+                  Object.keys(this.props.selectedActions)
+                  .filter(i => this.props.selectedActions[i])
+                  .reduce((acc, val) => acc + this.props.actionsIndex[val].devcaps_cost, 0)
+                }
+              />
 
             </div>
           </div>
@@ -66,6 +76,17 @@ TeamDashboard.propTypes = {
   currentRound: React.PropTypes.number,
   teamDevCaps: React.PropTypes.number,
   teamMindset: React.PropTypes.number,
+  actionsIndex: React.PropTypes.objectOf(
+    React.PropTypes.shape({
+      id: React.PropTypes.number,
+      name: React.PropTypes.string,
+      description: React.PropTypes.string,
+      devcaps_cost: React.PropTypes.number,
+      mindset_reward: React.PropTypes.number,
+    })
+  ),
+  selectedActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
+  pastActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
 };
 
 TeamDashboard.defaultProps = {
@@ -76,6 +97,7 @@ TeamDashboard.defaultProps = {
   teamDevCaps: null,
   teamMindset: null,
   currentRound: null,
+  actionsIndex: null,
 };
 
 export default TeamDashboard;

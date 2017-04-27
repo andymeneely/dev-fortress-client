@@ -28,3 +28,6 @@ export const actionsLoaded = createSelector(
   acs => !!acs
 );
 
+export const selectedActions = state => state[name].selectedActions;
+export const pastActions = state => state[name].pastActions;
+

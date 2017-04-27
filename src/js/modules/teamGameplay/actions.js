@@ -124,3 +124,10 @@ export function requestActions() {
   };
 }
 
+export function toggleAction(actionId) {
+  return {
+    type: actions.TOGGLE_ACTION,
+    actionId,
+  };
+}
+

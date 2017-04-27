@@ -231,6 +231,16 @@ $teamStatWidth: 300px;
 }
 
 .action-grid-container {
+
+}
+.action-grid-controls {
+  // padding: 12px;
+  span {
+  }
+  border-bottom: solid 1px $secondaryColor;
+}
+
+.action-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

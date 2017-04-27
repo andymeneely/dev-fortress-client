@@ -8,7 +8,7 @@ import { teamDevCaps } from '../../selectors';
 const ConnectedTeamSidebar = connect(
   () => createStructuredSelector({
     startingDevCaps: teamDevCaps,
-    spentDevCaps: () => 0,
+    // spentDevCaps: () => 0,
   }),
   () => ({})
 )(TeamSidebar);

@@ -5,11 +5,6 @@ class ActionGrid extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      selected: {
-
-      },
-    };
     this.makeActionPanel = this.makeActionPanel.bind(this);
   }
 
@@ -23,14 +18,10 @@ class ActionGrid extends React.Component {
         description={actionData.description}
         cost={actionData.devcaps_cost}
         reward={actionData.mindset_reward}
-        selected={!!this.state.selected[actionId]}
-        onClick={() => this.setState(
-          {
-            selected: Object.assign({}, this.state.selected, {
-              [actionId]: !(this.state.selected[actionId]),
-            }),
-          })
-        }
+        selected={!!this.props.selectedActions[actionId]}
+        onClick={() => this.props.toggleAction(actionId)}
+        // for each prereq, check if we've done it in the past
+        // prereqsMet={actionData.prereqs.every(e => !!this.props.pastActions[e])}
       />
     );
   }
@@ -38,7 +29,7 @@ class ActionGrid extends React.Component {
   render() {
     if (!this.props.actionsLoaded) {
       return (
-        <div className="action-grid-container">
+        <div className="action-grid">
           <h1>Loading Actions...</h1>
         </div>
       );
@@ -46,7 +37,9 @@ class ActionGrid extends React.Component {
 
     return (
       <div className="action-grid-container">
-        {Object.keys(this.props.actionsIndex).map(this.makeActionPanel)}
+        <div className="action-grid">
+          {Object.keys(this.props.actionsIndex).map(this.makeActionPanel)}
+        </div>
       </div>
     );
   }
@@ -63,11 +56,15 @@ ActionGrid.propTypes = {
     })
   ),
   actionsLoaded: React.PropTypes.bool,
+  toggleAction: React.PropTypes.func,
+  selectedActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
+  pastActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
 };
 
 ActionGrid.defaultProps = {
   actionsIndex: null,
   actionsLoaded: false,
+  toggleAction: () => {},
 };
 
 export default ActionGrid;

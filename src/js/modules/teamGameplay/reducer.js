@@ -18,6 +18,8 @@ const defaultState = {
   teamMindset: null,
   teamTypeId: null,
   teamGameId: null,
+  selectedActions: {},
+  pastActions: {},
   // game data
   requestingGameInfo: false,
   gameInfoError: null,
@@ -27,6 +29,7 @@ const defaultState = {
 
 
 export default function (state = defaultState, action) {
+  const newState = {};
   switch (action.type) {
     case actions.SUCCESS_TEAM_INFO:
       return Object.assign({}, state, {
@@ -104,6 +107,12 @@ export default function (state = defaultState, action) {
         requestingActions: false,
         actionsError: action.error,
       });
+    case actions.TOGGLE_ACTION:
+      // toggle selected state of action
+      newState.selectedActions = Object.assign({}, state.selectedActions, {
+        [action.actionId]: !state.selectedActions[action.actionId],
+      });
+      return Object.assign({}, state, newState);
     default:
       return state;
   }
