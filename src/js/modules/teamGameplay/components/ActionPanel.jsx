@@ -30,7 +30,7 @@ const ActionPanel = (props) => {
         <div className="value-label-container">
           <div className="value">
             <span>
-              -{props.cost}
+              {props.cost}
             </span>
           </div>
           <div className="label">
@@ -42,7 +42,7 @@ const ActionPanel = (props) => {
         <div className="value-label-container">
           <div className="value">
             <span>
-              {props.reward}
+              +{props.reward}
             </span>
           </div>
           <div className="label">
@@ -56,8 +56,24 @@ const ActionPanel = (props) => {
         <p>{props.description}</p>
       </div>
       <div className="button-container">
-        <button onClick={props.onClick}>
-          {props.selected ? 'Deselect' : 'Invest'}
+        <button
+          onClick={props.onClick}
+          disabled={(!props.prereqsMet || !props.canAfford) && !props.selected}
+        >
+          {
+            (() => {
+              if (props.selected) {
+                return 'Deselect';
+              }
+              if (!props.prereqsMet) {
+                return 'Missing PreReqs';
+              }
+              if (!props.canAfford) {
+                return 'Cannot Afford';
+              }
+              return 'Invest';
+            })()
+          }
         </button>
       </div>
     </div>
@@ -71,6 +87,8 @@ ActionPanel.propTypes = {
   description: React.PropTypes.string.isRequired,
   selected: React.PropTypes.bool,
   onClick: React.PropTypes.func,
+  prereqsMet: React.PropTypes.bool.isRequired,
+  canAfford: React.PropTypes.bool,
 };
 
 ActionPanel.defaultProps = {

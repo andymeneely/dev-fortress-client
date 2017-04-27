@@ -43,16 +43,13 @@ class TeamDashboard extends React.Component {
               actionsIndex={this.props.actionsIndex}
               selectedActions={this.props.selectedActions}
               pastActions={this.props.pastActions}
+              remainingDevcaps={this.props.teamDevCaps - this.props.spentDevcaps}
             />
           </div>
           <div className="sidebar-container">
             <div className="sidebar-container-container">
               <TeamSidebar
-                spentDevCaps={
-                  Object.keys(this.props.selectedActions)
-                  .filter(i => this.props.selectedActions[i])
-                  .reduce((acc, val) => acc + this.props.actionsIndex[val].devcaps_cost, 0)
-                }
+                spentDevCaps={this.props.spentDevcaps}
               />
 
             </div>
@@ -87,6 +84,7 @@ TeamDashboard.propTypes = {
   ),
   selectedActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
   pastActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
+  spentDevcaps: React.PropTypes.number.isRequired,
 };
 
 TeamDashboard.defaultProps = {

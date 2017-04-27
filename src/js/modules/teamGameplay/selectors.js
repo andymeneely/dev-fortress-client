@@ -30,4 +30,10 @@ export const actionsLoaded = createSelector(
 
 export const selectedActions = state => state[name].selectedActions;
 export const pastActions = state => state[name].pastActions;
-
+export const spentDevcaps = createSelector(
+  actionsIndex,
+  selectedActions,
+  (acts, sel) => Object.keys(sel)
+          .filter(i => sel[i])
+          .reduce((acc, val) => acc + acts[val].devcaps_cost, 0)
+);

@@ -13,6 +13,7 @@ $teamStatWidth: 300px;
   height: 100vh;
 
   font-family: 'Roboto Mono', monospace;
+  
   background-color: $bgColor;
   h1, h2, h3, h4, h5 {
     color: $textPrimaryColor;
@@ -388,6 +389,14 @@ $teamStatWidth: 300px;
         cursor: pointer;
         &:hover {
           background-color: darken($secondaryColor, 5%);
+        }
+
+        &:disabled {
+          background-color: lighten($secondaryColor, 20%);
+          cursor: default;
+          &:hover, &:active {
+            background-color: lighten($secondaryColor, 20%);
+          }
         }
 
         &:active {

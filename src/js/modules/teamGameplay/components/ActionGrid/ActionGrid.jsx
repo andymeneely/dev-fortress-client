@@ -21,7 +21,8 @@ class ActionGrid extends React.Component {
         selected={!!this.props.selectedActions[actionId]}
         onClick={() => this.props.toggleAction(actionId)}
         // for each prereq, check if we've done it in the past
-        // prereqsMet={actionData.prereqs.every(e => !!this.props.pastActions[e])}
+        prereqsMet={actionData.prereqs.every(e => !!this.props.pastActions[e])}
+        canAfford={this.props.remainingDevcaps >= actionData.devcaps_cost}
       />
     );
   }
@@ -59,6 +60,7 @@ ActionGrid.propTypes = {
   toggleAction: React.PropTypes.func,
   selectedActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
   pastActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
+  remainingDevcaps: React.PropTypes.number.isRequired
 };
 
 ActionGrid.defaultProps = {

@@ -12,7 +12,8 @@ import {
   currentRound,
   actionsIndex,
   selectedActions,
-  pastActions
+  pastActions,
+  spentDevcaps
 } from '../../selectors';
 import {
   requestTeamInfo,
@@ -34,6 +35,7 @@ const ConnectedTeamDashboard = connect(
     actionsIndex,
     selectedActions,
     pastActions,
+    spentDevcaps,
   }),
   dispatch => ({
     loadTeamInfo: tId => dispatch(requestTeamInfo(tId)),
