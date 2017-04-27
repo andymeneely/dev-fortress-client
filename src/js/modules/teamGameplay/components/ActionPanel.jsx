@@ -20,9 +20,11 @@ const ActionPanel = (props) => {
         <span>✓</span>
       </div>
       <div className="name-container">
-        <h3 style={nameStyle}>
-          {props.name}
-        </h3>
+        <div>
+          <h3 style={nameStyle}>
+            {props.name}
+          </h3>
+        </div>
       </div>
       <div className="stat-container">
         <div className="value-label-container">

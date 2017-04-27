@@ -34,7 +34,7 @@ const TeamSidebar = (props) => {
           </div>
         </div>
         <div className="note">
-          <span>Changed will be applied when phase ends.</span>
+          <span>Changes will be applied when phase ends.</span>
         </div>
       </div>
       <div className="calculation-container">
