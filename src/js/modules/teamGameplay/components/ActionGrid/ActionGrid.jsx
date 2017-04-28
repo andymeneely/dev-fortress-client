@@ -10,7 +10,6 @@ class ActionGrid extends React.Component {
 
   makeActionPanel(actionId) {
     const actionData = this.props.actionsIndex[actionId];
-
     return (
       <ActionPanel
         key={`action_${actionId}`}
@@ -23,6 +22,7 @@ class ActionGrid extends React.Component {
         // for each prereq, check if we've done it in the past
         prereqsMet={actionData.prereqs.every(e => !!this.props.pastActions[e])}
         canAfford={this.props.remainingDevcaps >= actionData.devcaps_cost}
+        prereqs={actionData.prereqs.map(e => this.props.actionsIndex[e.prereq_action_id])}
       />
     );
   }

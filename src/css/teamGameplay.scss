@@ -236,8 +236,6 @@ $teamStatWidth: 300px;
 }
 .action-grid-controls {
   // padding: 12px;
-  span {
-  }
   border-bottom: solid 1px $secondaryColor;
 }
 
@@ -246,7 +244,36 @@ $teamStatWidth: 300px;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 12px;
+  .prereq-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-color: rgba($primaryColor, 0.95);
+    text-align: center;
+    overflow-y: scroll;
+    opacity: 0;
+    transition: opacity 0.3s;
+    ul {
+      text-decoration: none;
+      list-style-type: none;
+      padding: 5px 22px;
+      text-align: left;
+    }
+    h2 {
+      margin: 10px;
+    }
+  }
+  .action-body {
+    position: relative;
+  }
   .action-panel {
+    &:hover {
+      .prereq-container {
+        opacity: 1;
+        display: block;
+      }
+    }
     position: relative;
     background-color: $primaryColor;
     border: 1px solid $secondaryColor;
