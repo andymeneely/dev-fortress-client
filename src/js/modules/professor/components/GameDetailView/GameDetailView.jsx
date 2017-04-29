@@ -9,6 +9,7 @@ class GameDetailView extends React.Component {
     super(props);
 
     this.makeTeamPanel = this.makeTeamPanel.bind(this);
+    this.handleStartGameClick = this.handleStartGameClick.bind(this);
   }
 
   componentWillMount() {
@@ -30,6 +31,10 @@ class GameDetailView extends React.Component {
     this.setState({
       teamNameValue: event.target.value,
     });
+  }
+
+  handleStartGameClick() {
+    return this.props.startGame(this.props.gameData);
   }
 
   makeTeamPanel(teamData) {
@@ -58,7 +63,6 @@ class GameDetailView extends React.Component {
       return (<div>Game Not Found!</div>);
     }
     const createDate = new Date(this.props.gameData.createDate);
-    const start = this.props.startGame.bind(this, this.props.gameData);
     return (
       <div>
         <h1>Game Detail View</h1>
@@ -67,7 +71,7 @@ class GameDetailView extends React.Component {
         <h4>Number of Rounds: {this.props.gameData.numRounds}</h4>
         <button
           disabled={this.props.gameData.teams.length === 0}
-          onClick={start}
+          onClick={this.handleStartGameClick}
         > Start Game </button>
         <h2>Teams</h2>
         <h3>Add a team</h3>
