@@ -65,6 +65,10 @@ const Routes = (props) => {
               path="game/:gameId"
               component={professorModule.GameDetailView}
             />
+            <Route
+              path="game/:gameId/manage"
+              component={professorModule.StoryTellerView}
+            />
           </Route>
         </Route>
       </Router>

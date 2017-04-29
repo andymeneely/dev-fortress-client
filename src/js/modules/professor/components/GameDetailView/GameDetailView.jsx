@@ -2,6 +2,7 @@ import React from 'react';
 import AddTeamForm from './subcomponents/AddTeamForm';
 import { TeamTypeArray, gameDataShape } from '../propTypes';
 
+
 class GameDetailView extends React.Component {
 
   constructor(props) {
@@ -57,12 +58,17 @@ class GameDetailView extends React.Component {
       return (<div>Game Not Found!</div>);
     }
     const createDate = new Date(this.props.gameData.createDate);
+    const start = this.props.startGame.bind(this, this.props.gameData);
     return (
       <div>
         <h1>Game Detail View</h1>
         <h2>{this.props.gameData.name}</h2>
         <h3>Created: {`${createDate.getMonth()}/${createDate.getDate()}/${createDate.getFullYear()}`}</h3>
         <h4>Number of Rounds: {this.props.gameData.numRounds}</h4>
+        <button
+          disabled={this.props.gameData.teams.length === 0}
+          onClick={start}
+        > Start Game </button>
         <h2>Teams</h2>
         <h3>Add a team</h3>
         <AddTeamForm
@@ -95,6 +101,7 @@ GameDetailView.propTypes = {
   addTeam: React.PropTypes.func.isRequired,
   addingTeam: React.PropTypes.bool,
   teamAddError: React.PropTypes.string,
+  startGame: React.PropTypes.func.isRequired,
 };
 
 GameDetailView.defaultProps = {

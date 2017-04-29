@@ -160,6 +160,15 @@ function successAddTeam() {
   };
 }
 
+export function startGame(gameData) {
+  browserHistory.push(`/professor/game/${gameData.id}/manage`);
+  // This is where I would trigger the sockets
+  return {
+    type: actions.START_GAME,
+    gameData,
+  };
+}
+
 export function attemptAddTeam(teamName, teamTypeId, gameId) {
   return (dispatch, getState) => {
     const state = getState();

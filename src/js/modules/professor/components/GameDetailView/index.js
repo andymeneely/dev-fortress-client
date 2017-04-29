@@ -14,7 +14,8 @@ import {
 import {
   attemptLoadGame,
   attemptLoadTeamTypes,
-  attemptAddTeam
+  attemptAddTeam,
+  startGame
 } from '../../actions';
 
 const ConnectedGameDetailView = connect(
@@ -31,6 +32,7 @@ const ConnectedGameDetailView = connect(
     loadGameData: gameId => dispatch(attemptLoadGame(gameId)),
     loadTeamTypes: () => dispatch(attemptLoadTeamTypes()),
     addTeam: (tName, tId, gId) => dispatch(attemptAddTeam(tName, tId, gId)),
+    startGame: gameId => dispatch(startGame(gameId)),
   })
 )(GameDetailView);
 

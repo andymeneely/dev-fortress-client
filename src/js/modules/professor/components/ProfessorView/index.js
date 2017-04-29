@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import ProfessorView from './ProfessorView';
-import { attemptLoadMyGames } from '../../actions';
+import { attemptLoadMyGames, startGame } from '../../actions';
 import {
   myGames,
-  loadingMyGames,
-  myGamesError
+  loadingMyGames
 } from '../../selectors';
 
 const ConnectedProfessorView = connect(
@@ -15,6 +14,7 @@ const ConnectedProfessorView = connect(
   }),
   dispatch => ({
     loadGames: () => dispatch(attemptLoadMyGames()),
+    startGame: () => dispatch(startGame()),
   })
 )(ProfessorView);
 

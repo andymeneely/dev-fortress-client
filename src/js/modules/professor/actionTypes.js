@@ -17,3 +17,5 @@ export const FAIL_LOAD_TEAM_TYPES = 'professor/FAIL_LOAD_TEAM_TYPES';
 export const ATTEMPT_ADD_TEAM = 'professor/ATTEMPT_ADD_TEAM';
 export const SUCCESS_ADD_TEAM = 'professor/SUCCESS_ADD_TEAM';
 export const FAIL_ADD_TEAM = 'professor/FAIL_ADD_TEAM';
+
+export const START_GAME = 'professor/START_GAME';
