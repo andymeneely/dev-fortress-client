@@ -1,6 +1,7 @@
 import * as api from 'lib/api';
 import AuthModule from 'modules/authentication';
 import * as actions from './actionTypes';
+import { authenticateTeam } from '../../socket/emitters/authenticate';
 
 function successTeamInfo(teamInfo) {
   return {
@@ -28,6 +29,7 @@ export function requestTeamInfo(teamId) {
       if (err) {
         return dispatch(failTeamInfo(err));
       }
+      authenticateTeam(jwt);
       return dispatch(successTeamInfo(data));
     });
   };
