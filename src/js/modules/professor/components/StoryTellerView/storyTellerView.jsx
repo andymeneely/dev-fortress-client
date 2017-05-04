@@ -9,6 +9,9 @@ class StoryTellerView extends React.Component {
     );
   }
 }
+
+StoryTellerView.propTypes = {};
+
 StoryTellerView.defaultProps = {};
 
 export default StoryTellerView;
