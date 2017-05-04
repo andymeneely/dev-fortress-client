@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import AuthModule from 'modules/authentication';
 import TeamDashboard from './TeamDashboard';
-import { teamName, socketAuthed } from '../../selectors';
+import { teamName, socketAuthenticated } from '../../selectors';
 import { requestTeamInfo, tryAuthTeamSocket } from '../../actions';
 
 const ConnectedTeamDashboard = connect(
