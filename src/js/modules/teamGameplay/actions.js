@@ -1,7 +1,7 @@
 import * as api from 'lib/api';
+import { authenticateTeam } from 'lib/socket/emitters';
 import AuthModule from 'modules/authentication';
 import * as actions from './actionTypes';
-import { authenticateTeam } from '../../socket/emitters/authenticate';
 
 function successTeamInfo(teamInfo) {
   return {
@@ -29,8 +29,35 @@ export function requestTeamInfo(teamId) {
       if (err) {
         return dispatch(failTeamInfo(err));
       }
-      authenticateTeam(jwt);
+
       return dispatch(successTeamInfo(data));
     });
   };
 }
+
+export function tryAuthTeamSocket() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const jwt = AuthModule.selectors.getJwt(state);
+
+    authenticateTeam(jwt);
+
+    return dispatch({
+      type: actions.TRY_AUTH_TEAM_SOCKET,
+    });
+  };
+}
+
+export function successAuthTeamsocket() {
+  return {
+    type: actions.SUCCESS_AUTH_TEAM_SOCKET,
+
+  };
+}
+
+export function socketJoinRoom() {
+  return {
+    type: actions.SOCKET_JOIN_ROOM,
+  };
+}
+

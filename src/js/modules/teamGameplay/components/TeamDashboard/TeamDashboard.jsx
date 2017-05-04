@@ -4,10 +4,11 @@ class TeamDashboard extends React.Component {
 
   componentDidMount() {
     this.props.loadTeamInfo(this.props.teamId);
+    this.props.authTeamSocket();
   }
 
   render() {
-    if (!this.props.teamName) {
+    if (!this.props.teamName && !this.props.socketAuthed) {
       return (<div>Loading Team Dashboard...</div>);
     }
     return (
@@ -21,8 +22,10 @@ class TeamDashboard extends React.Component {
 
 TeamDashboard.propTypes = {
   loadTeamInfo: React.PropTypes.func.isRequired,
+  authTeamSocket: React.PropTypes.func.isRequired,
   teamId: React.PropTypes.number.isRequired,
   teamName: React.PropTypes.string,
+  socketAuthed: React.PropTypes.bool.isRequired,
 };
 
 TeamDashboard.defaultProps = {

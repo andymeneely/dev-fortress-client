@@ -11,6 +11,7 @@ const defaultState = {
   teamMindset: null,
   teamTypeId: null,
   teamGameId: null,
+  socketAuthed: false,
 };
 
 
@@ -35,6 +36,10 @@ export default function (state = defaultState, action) {
     case actions.REQUEST_TEAM_INFO:
       return Object.assign({}, state, {
         requestingTeamInfo: true,
+      });
+    case actions.SUCCESS_AUTH_TEAM_SOCKET:
+      return Object.assign({}, state, {
+        socketAuthed: true,
       });
     default:
       return state;
