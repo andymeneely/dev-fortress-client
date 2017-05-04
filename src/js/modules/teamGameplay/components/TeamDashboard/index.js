@@ -13,13 +13,16 @@ import {
   actionsIndex,
   selectedActions,
   pastActions,
-  spentDevcaps
+  spentDevcaps,
+  socketAuthenticated
 } from '../../selectors';
+
 import {
   requestTeamInfo,
   requestGameInfo,
   requestTeamTypes,
-  requestActions
+  requestActions,
+  tryAuthTeamSocket
 } from '../../actions';
 
 const ConnectedTeamDashboard = connect(
@@ -36,12 +39,14 @@ const ConnectedTeamDashboard = connect(
     selectedActions,
     pastActions,
     spentDevcaps,
+    socketAuthenticated,
   }),
   dispatch => ({
     loadTeamInfo: tId => dispatch(requestTeamInfo(tId)),
     loadGameInfo: gId => dispatch(requestGameInfo(gId)),
     loadTeamTypes: () => dispatch(requestTeamTypes()),
     loadActions: () => dispatch(requestActions()),
+    authTeamSocket: () => dispatch(tryAuthTeamSocket()),
   })
 )(TeamDashboard);
 

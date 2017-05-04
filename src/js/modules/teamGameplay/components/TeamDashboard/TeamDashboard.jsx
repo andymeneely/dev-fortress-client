@@ -12,6 +12,7 @@ class TeamDashboard extends React.Component {
     this.props.loadTeamInfo(this.props.teamId);
     this.props.loadTeamTypes();
     this.props.loadActions();
+    this.props.authTeamSocket();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,7 +22,7 @@ class TeamDashboard extends React.Component {
   }
 
   render() {
-    if (!this.props.teamName) {
+    if (!this.props.teamName && !this.props.socketAuthenticated) {
       return (<div>Loading Team Dashboard...</div>);
     }
 
@@ -65,6 +66,7 @@ TeamDashboard.propTypes = {
   loadGameInfo: React.PropTypes.func.isRequired,
   loadActions: React.PropTypes.func.isRequired,
   loadTeamTypes: React.PropTypes.func.isRequired,
+  authTeamSocket: React.PropTypes.func.isRequired,
   teamId: React.PropTypes.number.isRequired,
   teamName: React.PropTypes.string,
   teamTypeName: React.PropTypes.string,
@@ -85,6 +87,7 @@ TeamDashboard.propTypes = {
   selectedActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
   pastActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
   spentDevcaps: React.PropTypes.number.isRequired,
+  socketAuthenticated: React.PropTypes.bool.isRequired,
 };
 
 TeamDashboard.defaultProps = {

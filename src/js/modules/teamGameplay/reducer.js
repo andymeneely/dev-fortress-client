@@ -25,6 +25,7 @@ const defaultState = {
   gameInfoError: null,
   gameName: null,
   currentRound: null,
+  socketAuthed: false,
 };
 
 
@@ -119,6 +120,10 @@ export default function (state = defaultState, action) {
         [action.actionId]: false,
       });
       return Object.assign({}, state, newState);
+    case actions.SUCCESS_AUTH_TEAM_SOCKET:
+      return Object.assign({}, state, {
+        socketAuthed: true,
+      });
     default:
       return state;
   }

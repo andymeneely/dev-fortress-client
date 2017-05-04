@@ -6,6 +6,7 @@ export const teamName = state => state[name].teamName;
 export const teamGameId = state => state[name].teamGameId;
 export const teamTypeId = state => state[name].teamTypeId;
 export const teamTypeIndex = state => state[name].teamTypeIndex;
+export const socketAuthenticated = state => state[name].socketAuthed;
 export const teamDataLoaded = createSelector(teamName, tn => !!tn);
 export const teamTypeName = createSelector(
   teamTypeIndex,
