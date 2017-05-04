@@ -9,7 +9,7 @@ const ConnectedTeamDashboard = connect(
   createStructuredSelector({
     teamId: AuthModule.selectors.teamIdSelector,
     teamName,
-    socketAuthed,
+    socketAuthenticated,
   }),
   dispatch => ({
     loadTeamInfo: tId => dispatch(requestTeamInfo(tId)),
