@@ -10,5 +10,6 @@ export const FAIL_TEAM_TYPES = 'teamGameplay/FAIL_TEAM_TYPES';
 export const REQUEST_ACTIONS = 'teamGameplay/REQUEST_ACTIONS';
 export const SUCCESS_ACTIONS = 'teamGameplay/SUCCESS_ACTIONS';
 export const FAIL_ACTIONS = 'teamGameplay/FAIL_ACTIONS';
-export const TOGGLE_ACTION = 'teamGameplay/TOGGLE_ACTION';
+export const SELECT_ACTION = 'teamGameplay/SELECT_ACTION';
+export const DESELECT_ACTION = 'teamGameplay/DESELECT_ACTION';
 

@@ -107,10 +107,16 @@ export default function (state = defaultState, action) {
         requestingActions: false,
         actionsError: action.error,
       });
-    case actions.TOGGLE_ACTION:
+    case actions.SELECT_ACTION:
       // toggle selected state of action
       newState.selectedActions = Object.assign({}, state.selectedActions, {
-        [action.actionId]: !state.selectedActions[action.actionId],
+        [action.actionId]: true,
+      });
+      return Object.assign({}, state, newState);
+    case actions.DESELECT_ACTION:
+      // toggle selected state of action
+      newState.selectedActions = Object.assign({}, state.selectedActions, {
+        [action.actionId]: false,
       });
       return Object.assign({}, state, newState);
     default:

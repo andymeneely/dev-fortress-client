@@ -6,6 +6,15 @@ class ActionGrid extends React.Component {
   constructor(props) {
     super(props);
     this.makeActionPanel = this.makeActionPanel.bind(this);
+    this.toggleAction = this.toggleAction.bind(this);
+  }
+
+  toggleAction(id) {
+    if (this.props.selectedActions[id]) {
+      this.props.deselectAction(id);
+    } else {
+      this.props.selectAction(id);
+    }
   }
 
   makeActionPanel(actionId) {
@@ -18,7 +27,7 @@ class ActionGrid extends React.Component {
         cost={actionData.devcaps_cost}
         reward={actionData.mindset_reward}
         selected={!!this.props.selectedActions[actionId]}
-        onClick={() => this.props.toggleAction(actionId)}
+        onClick={() => this.toggleAction(actionId)}
         // for each prereq, check if we've done it in the past
         prereqsMet={actionData.prereqs.every(e => !!this.props.pastActions[e])}
         canAfford={this.props.remainingDevcaps >= actionData.devcaps_cost}
@@ -57,7 +66,8 @@ ActionGrid.propTypes = {
     })
   ),
   actionsLoaded: React.PropTypes.bool,
-  toggleAction: React.PropTypes.func,
+  selectAction: React.PropTypes.func,
+  deselectAction: React.PropTypes.func,
   selectedActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
   pastActions: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
   remainingDevcaps: React.PropTypes.number.isRequired
@@ -66,7 +76,8 @@ ActionGrid.propTypes = {
 ActionGrid.defaultProps = {
   actionsIndex: null,
   actionsLoaded: false,
-  toggleAction: () => {},
+  selectAction: () => {},
+  deselectAction: () => {},
 };
 
 export default ActionGrid;

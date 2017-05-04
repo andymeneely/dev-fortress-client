@@ -124,9 +124,24 @@ export function requestActions() {
   };
 }
 
-export function toggleAction(actionId) {
+// export function toggleAction(actionId) {
+//   return {
+//     type: actions.TOGGLE_ACTION,
+//     actionId,
+//   };
+// }
+
+export function selectAction(actionId) {
   return {
-    type: actions.TOGGLE_ACTION,
+    type: actions.SELECT_ACTION,
+    actionId,
+  };
+}
+
+
+export function deselectAction(actionId) {
+  return {
+    type: actions.DESELECT_ACTION,
     actionId,
   };
 }

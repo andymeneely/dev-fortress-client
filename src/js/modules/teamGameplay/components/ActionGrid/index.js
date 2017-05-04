@@ -5,7 +5,8 @@ import {
   actionsLoaded
 } from '../../selectors';
 import {
-  toggleAction
+  selectAction,
+  deselectAction
 } from '../../actions';
 import ActionGrid from './ActionGrid';
 
@@ -14,7 +15,8 @@ const ConnectedActionGrid = connect(
     actionsLoaded,
   }),
   dispatch => ({
-    toggleAction: id => dispatch(toggleAction(id)),
+    selectAction: id => dispatch(selectAction(id)),
+    deselectAction: id => dispatch(deselectAction(id)),
   })
 )(ActionGrid);
 
