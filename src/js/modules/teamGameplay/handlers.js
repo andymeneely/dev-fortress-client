@@ -5,15 +5,25 @@ import Store from '../../store';
 function handleInfo(event) {
   switch (event.event) {
     case 'authenticate_team':
-      Store.dispatch(actions.successAuthTeamsocket());
+      Store.dispatch(actions.successAuthTeamSocket());
       break;
     default:
       break;
   }
 }
 
+function handleDisconnect() {
+  console.log('Disconnected!');
+}
+
+function handleSelectedActionsUpdate(teamActionSelections) {
+  Store.dispatch(actions.selectedActionsUpdate(teamActionSelections));
+}
+
 const eventMap = {
   info: handleInfo,
+  disconnect: handleDisconnect,
+  selected_actions_update: handleSelectedActionsUpdate,
 };
 
 

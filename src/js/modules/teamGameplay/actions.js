@@ -1,5 +1,5 @@
 import * as api from 'lib/api';
-import { authenticateTeam } from 'lib/socket/emitters';
+import * as Emitters from 'lib/socket/emitters';
 import AuthModule from 'modules/authentication';
 import * as actions from './actionTypes';
 
@@ -93,21 +93,9 @@ export function requestTeamTypes() {
       }
       return dispatch(successTeamTypes(data));
     });
-  }
-}
-
-export function tryAuthTeamSocket() {
-  return (dispatch, getState) => {
-    const state = getState();
-    const jwt = AuthModule.selectors.getJwt(state);
-
-    authenticateTeam(jwt);
-
-    return dispatch({
-      type: actions.TRY_AUTH_TEAM_SOCKET,
-    });
   };
 }
+
 
 
 export function successActions(actionsList) {
@@ -140,14 +128,9 @@ export function requestActions() {
   };
 }
 
-// export function toggleAction(actionId) {
-//   return {
-//     type: actions.TOGGLE_ACTION,
-//     actionId,
-//   };
-// }
-
 export function selectAction(actionId) {
+  Emitters.selectAction(actionId);
+
   return {
     type: actions.SELECT_ACTION,
     actionId,
@@ -156,13 +139,40 @@ export function selectAction(actionId) {
 
 
 export function deselectAction(actionId) {
+  Emitters.deselectAction(actionId);
+
   return {
     type: actions.DESELECT_ACTION,
     actionId,
-  }
+  };
 }
 
-export function successAuthTeamsocket() {
+export function selectedActionsUpdate(teamActionSelections) {
+  return (dispatch, getState) => {
+    const state = getState();
+    const teamId = AuthModule.selectors.teamIdSelector(state);
+
+    return dispatch({
+      type: actions.SELECTED_ACTIONS_UPDATE,
+      selectedActions: teamActionSelections[teamId],
+    });
+  };
+}
+
+export function tryAuthTeamSocket() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const jwt = AuthModule.selectors.getJwt(state);
+
+    Emitters.authenticateTeam(jwt);
+
+    return dispatch({
+      type: actions.TRY_AUTH_TEAM_SOCKET,
+    });
+  };
+}
+
+export function successAuthTeamSocket() {
   return {
     type: actions.SUCCESS_AUTH_TEAM_SOCKET,
   };

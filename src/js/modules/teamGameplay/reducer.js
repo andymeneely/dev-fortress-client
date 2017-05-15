@@ -120,6 +120,15 @@ export default function (state = defaultState, action) {
         [action.actionId]: false,
       });
       return Object.assign({}, state, newState);
+    case actions.SELECTED_ACTIONS_UPDATE:
+      newState.selectedActions = action.selectedActions.reduce(
+          (acc, curr) =>
+            Object.assign({}, acc, {
+              [curr]: true,
+            }),
+          {}
+      );
+      return Object.assign({}, state, newState);
     case actions.SUCCESS_AUTH_TEAM_SOCKET:
       return Object.assign({}, state, {
         socketAuthed: true,

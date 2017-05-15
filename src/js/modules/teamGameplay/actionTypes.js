@@ -14,3 +14,4 @@ export const SELECT_ACTION = 'teamGameplay/SELECT_ACTION';
 export const DESELECT_ACTION = 'teamGameplay/DESELECT_ACTION';
 export const TRY_AUTH_TEAM_SOCKET = 'teamGameplay/TRY_AUTH_TEAM_SOCKET';
 export const SUCCESS_AUTH_TEAM_SOCKET = 'teamGameplay/SUCCESS_AUTH_TEAM_SOCKET';
+export const SELECTED_ACTIONS_UPDATE = 'teamGameplay/SELECTED_ACTIONS_UPDATE';
